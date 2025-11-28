@@ -462,11 +462,24 @@ interface QuestionSlideProps {
 
 function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
   const [noAttempts, setNoAttempts] = useState(0);
+  const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
+
+  const getRandomPosition = () => {
+    const x = (Math.random() - 0.5) * 300;
+    const y = (Math.random() - 0.5) * 200;
+    return { x, y };
+  };
 
   const handleNoClick = () => {
-    setNoAttempts((prev) => prev + 1);
-    if (noAttempts >= 2) {
-      onAnswer(false);
+    const newAttempts = noAttempts + 1;
+    setNoAttempts(newAttempts);
+    
+    if (newAttempts < 3) {
+      setButtonPosition(getRandomPosition());
+    } else {
+      setTimeout(() => {
+        onAnswer(false);
+      }, 500);
     }
   };
 
@@ -529,6 +542,17 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
           onClick={handleNoClick}
           className="px-8 py-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-lg transition-colors"
           data-testid="button-no-main"
+          animate={{
+            x: buttonPosition.x,
+            y: buttonPosition.y,
+            opacity: noAttempts >= 3 ? 0 : 1,
+          }}
+          transition={{
+            duration: 0.5,
+            type: "spring",
+            stiffness: 200,
+            damping: 20,
+          }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
