@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Heart, Sparkles, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
 
 interface DecorativeCircle {
   id: number;
@@ -22,26 +22,22 @@ const decorativeCircles: DecorativeCircle[] = [
 
 interface Slide {
   id: number;
-  content: "welcome" | "greeting" | "message" | "hearts" | "stars" | "question" | "answer";
+  content: "game" | "flower-choice" | "flowers" | "question" | "answer";
 }
 
 const slides: Slide[] = [
-  { id: 1, content: "welcome" },
-  { id: 2, content: "greeting" },
-  { id: 3, content: "message" },
-  { id: 4, content: "hearts" },
-  { id: 5, content: "stars" },
-  { id: 6, content: "question" },
-  { id: 7, content: "answer" },
+  { id: 1, content: "game" },
+  { id: 2, content: "flower-choice" },
+  { id: 3, content: "flowers" },
+  { id: 4, content: "question" },
+  { id: 5, content: "answer" },
 ];
 
 function FloatingCircle({ circle }: { circle: DecorativeCircle }) {
   return (
     <motion.div
       className={`absolute rounded-full border-2 ${
-        circle.isPink
-          ? "border-pink-400/40"
-          : "border-white/20"
+        circle.isPink ? "border-pink-400/40" : "border-white/20"
       }`}
       style={{
         width: circle.size,
@@ -114,215 +110,181 @@ function Avatar() {
   );
 }
 
-function WelcomeSlide() {
+interface GameSlideProps {
+  onAnswer: (answer: boolean) => void;
+}
+
+function GameSlide({ onAnswer }: GameSlideProps) {
   return (
     <motion.div
-      className="flex flex-col items-center justify-center gap-6"
+      className="flex flex-col items-center justify-center gap-12"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
       <Avatar />
+
       <motion.div
         className="text-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
-        <h1
-          className="text-3xl font-bold text-white mb-2"
-          dir="rtl"
-          data-testid="text-greeting-title"
-        >
-          هلوو اسراء
-        </h1>
-        <motion.p
-          className="text-pink-300 text-xl tracking-widest"
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          &#60;&#60;&#60;&#60;
-        </motion.p>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-function GreetingSlide() {
-  return (
-    <motion.div
-      className="flex flex-col items-center justify-center gap-8"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <motion.div
-        className="w-20 h-20 rounded-full bg-pink-500/30 flex items-center justify-center"
-        animate={{ scale: [1, 1.1, 1] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <div className="w-12 h-12 rounded-full bg-pink-400/50" />
-      </motion.div>
-      <motion.h2
-        className="text-4xl font-bold text-white"
-        dir="rtl"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.2 }}
-        data-testid="text-hellooo"
+        transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
       >
-        هلاووو
-      </motion.h2>
+        <h1 className="text-4xl font-bold text-white mb-4" dir="rtl">
+          هلا اسراء 👋
+        </h1>
+        <p className="text-2xl text-pink-300 mb-6" dir="rtl" data-testid="game-question">
+          هل تريدين أن نلعب لعبة؟ 🎮
+        </p>
+      </motion.div>
+
+      <motion.div
+        className="flex gap-8 items-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+      >
+        <motion.button
+          onClick={() => onAnswer(true)}
+          className="px-8 py-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-lg transition-colors"
+          data-testid="button-yes-game"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          نعم 😊
+        </motion.button>
+
+        <motion.button
+          onClick={() => onAnswer(false)}
+          className="px-8 py-3 rounded-full bg-white/20 hover:bg-white/30 text-white font-semibold text-lg transition-colors"
+          data-testid="button-no-game"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          لا 😔
+        </motion.button>
+      </motion.div>
     </motion.div>
   );
 }
 
-function MessageSlide() {
+interface FlowerChoiceSlideProps {
+  onChoice: (choice: "red" | "white") => void;
+}
+
+function FlowerChoiceSlide({ onChoice }: FlowerChoiceSlideProps) {
   return (
     <motion.div
-      className="flex flex-col items-center justify-center gap-6 text-center px-8"
+      className="flex flex-col items-center justify-center gap-12"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
       <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ type: "spring", stiffness: 200 }}
+        className="text-center"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
       >
-        <Sparkles className="w-16 h-16 text-pink-400" />
+        <p className="text-3xl text-white mb-2" dir="rtl" data-testid="flower-question">
+          سؤالي الأول لك:
+        </p>
+        <p className="text-2xl text-pink-300" dir="rtl">
+          هل تحبين الورد الأحمر أم الأبيض؟ 🌹
+        </p>
       </motion.div>
-      <motion.p
-        className="text-2xl text-white/90 leading-relaxed"
-        dir="rtl"
+
+      <motion.div
+        className="flex gap-12 items-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        data-testid="text-special-message"
-      >
-        انتي شخص مميز جداً
-      </motion.p>
-      <motion.p
-        className="text-lg text-pink-300"
-        dir="rtl"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
       >
-        واتمنى لك يوم سعيد
-      </motion.p>
+        <motion.button
+          onClick={() => onChoice("red")}
+          className="px-8 py-4 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold text-lg transition-colors flex items-center gap-2"
+          data-testid="button-red-flower"
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <span>الأحمر</span>
+          <span className="text-2xl">🌹</span>
+        </motion.button>
+
+        <motion.button
+          onClick={() => onChoice("white")}
+          className="px-8 py-4 rounded-full bg-white/30 hover:bg-white/40 text-white font-semibold text-lg transition-colors flex items-center gap-2"
+          data-testid="button-white-flower"
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <span>الأبيض</span>
+          <span className="text-2xl">🤍</span>
+        </motion.button>
+      </motion.div>
     </motion.div>
   );
 }
 
-function HeartsSlide() {
-  const hearts = Array.from({ length: 12 }, (_, i) => ({
+interface FlowersSlideProps {
+  choice: "red" | "white";
+}
+
+function FlowersSlide({ choice }: FlowersSlideProps) {
+  const flowers = Array.from({ length: 8 }, (_, i) => ({
     id: i,
-    size: Math.random() * 20 + 15,
-    x: Math.random() * 80 + 10,
-    delay: Math.random() * 2,
+    x: Math.random() * 60 + 20,
+    delay: Math.random() * 1.5,
   }));
+
+  const isRed = choice === "red";
 
   return (
     <motion.div
-      className="relative w-full h-64 flex items-center justify-center"
+      className="relative w-full h-96 flex items-center justify-center overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {hearts.map((heart) => (
+      {flowers.map((flower) => (
         <motion.div
-          key={heart.id}
-          className="absolute"
+          key={flower.id}
+          className="absolute text-6xl"
           style={{
-            left: `${heart.x}%`,
-            bottom: "20%",
+            left: `${flower.x}%`,
+            bottom: "-50px",
           }}
-          initial={{ y: 0, opacity: 0 }}
+          initial={{ y: 0, opacity: 0, rotate: 0 }}
           animate={{
-            y: -200,
+            y: -400,
             opacity: [0, 1, 1, 0],
+            rotate: [0, 360],
           }}
           transition={{
-            duration: 3,
-            delay: heart.delay,
+            duration: 4,
+            delay: flower.delay,
             repeat: Infinity,
             ease: "easeOut",
           }}
+          data-testid={`flower-${flower.id}`}
         >
-          <Heart
-            className="text-pink-400 fill-pink-400"
-            style={{ width: heart.size, height: heart.size }}
-          />
+          {isRed ? "🌹" : "🤍"}
         </motion.div>
       ))}
-      <motion.p
-        className="text-2xl text-white z-10"
-        dir="rtl"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 0.3, type: "spring" }}
-        data-testid="text-love-message"
-      >
-        بحبك كتير
-      </motion.p>
-    </motion.div>
-  );
-}
 
-function StarsSlide() {
-  const stars = Array.from({ length: 20 }, (_, i) => ({
-    id: i,
-    size: Math.random() * 15 + 8,
-    x: Math.random() * 90 + 5,
-    y: Math.random() * 90 + 5,
-    delay: Math.random() * 2,
-  }));
-
-  return (
-    <motion.div
-      className="relative w-full h-64 flex items-center justify-center"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      {stars.map((star) => (
-        <motion.div
-          key={star.id}
-          className="absolute"
-          style={{
-            left: `${star.x}%`,
-            top: `${star.y}%`,
-          }}
-          initial={{ scale: 0, rotate: 0 }}
-          animate={{
-            scale: [0, 1, 0],
-            rotate: 180,
-          }}
-          transition={{
-            duration: 2,
-            delay: star.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <Star
-            className="text-yellow-300 fill-yellow-300"
-            style={{ width: star.size, height: star.size }}
-          />
-        </motion.div>
-      ))}
       <motion.div
         className="text-center z-10"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.3, type: "spring" }}
       >
-        <p className="text-2xl text-white mb-2" dir="rtl" data-testid="text-star-message">
-          انتي نجمة
+        <p className="text-3xl text-white" dir="rtl" data-testid="flower-message">
+          {isRed
+            ? "أنتِ تحبين الورد الأحمر 🌹"
+            : "أنتِ تحبين الورد الأبيض 🤍"}
         </p>
-        <p className="text-lg text-yellow-300" dir="rtl">
-          تضيئين حياتي
+        <p className="text-xl text-pink-300 mt-4" dir="rtl">
+          مثل احمرار خدودك عندما تخجلين 😊
         </p>
       </motion.div>
     </motion.div>
@@ -331,18 +293,16 @@ function StarsSlide() {
 
 interface QuestionSlideProps {
   onAnswer: (answer: boolean) => void;
-  onNoHover?: () => void;
+  flowerChoice: "red" | "white";
 }
 
-function QuestionSlide({ onAnswer, onNoHover }: QuestionSlideProps) {
+function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
   const [noAttempts, setNoAttempts] = useState(0);
 
   const handleNoClick = () => {
-    setNoAttempts(prev => prev + 1);
+    setNoAttempts((prev) => prev + 1);
     if (noAttempts >= 2) {
       onAnswer(false);
-    } else {
-      onNoHover?.();
     }
   };
 
@@ -373,7 +333,7 @@ function QuestionSlide({ onAnswer, onNoHover }: QuestionSlideProps) {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 + idx * 0.2 }}
-            data-testid={`narrative-step-${idx}`}
+            data-testid={`narrative-${idx}`}
           >
             "{step}"
           </motion.p>
@@ -386,11 +346,7 @@ function QuestionSlide({ onAnswer, onNoHover }: QuestionSlideProps) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1, type: "spring", stiffness: 200 }}
       >
-        <h2
-          className="text-4xl font-bold text-white mb-2"
-          dir="rtl"
-          data-testid="text-question"
-        >
+        <h2 className="text-4xl font-bold text-white mb-2" dir="rtl" data-testid="main-question">
           هل تحبيني؟
         </h2>
         <p className="text-pink-300 text-lg" dir="rtl">
@@ -407,7 +363,7 @@ function QuestionSlide({ onAnswer, onNoHover }: QuestionSlideProps) {
         <motion.button
           onClick={handleNoClick}
           className="px-8 py-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-lg transition-colors"
-          data-testid="button-no"
+          data-testid="button-no-main"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -417,7 +373,7 @@ function QuestionSlide({ onAnswer, onNoHover }: QuestionSlideProps) {
         <motion.button
           onClick={() => onAnswer(true)}
           className="px-8 py-3 rounded-full bg-white/20 hover:bg-white/30 text-white font-semibold text-lg transition-colors"
-          data-testid="button-yes"
+          data-testid="button-yes-main"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -432,7 +388,7 @@ function QuestionSlide({ onAnswer, onNoHover }: QuestionSlideProps) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          data-testid="text-hint"
+          data-testid="hint-message"
         >
           كل محاولة للهروب تجعلك أقرب إليّ... 💕
         </motion.p>
@@ -494,7 +450,7 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 + idx * 0.2 }}
-            data-testid={`continuation-${idx}`}
+            data-testid={`final-message-${idx}`}
           >
             "{line}"
           </motion.p>
@@ -543,23 +499,33 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
 
 interface SlideContentProps {
   content: Slide["content"];
-  onAnswer?: (answer: boolean) => void;
+  onGameAnswer?: (answer: boolean) => void;
+  onFlowerChoice?: (choice: "red" | "white") => void;
+  onMainAnswer?: (answer: boolean) => void;
+  flowerChoice?: "red" | "white";
 }
 
-function SlideContent({ content, onAnswer }: SlideContentProps) {
+function SlideContent({
+  content,
+  onGameAnswer,
+  onFlowerChoice,
+  onMainAnswer,
+  flowerChoice,
+}: SlideContentProps) {
   switch (content) {
-    case "welcome":
-      return <WelcomeSlide />;
-    case "greeting":
-      return <GreetingSlide />;
-    case "message":
-      return <MessageSlide />;
-    case "hearts":
-      return <HeartsSlide />;
-    case "stars":
-      return <StarsSlide />;
+    case "game":
+      return <GameSlide onAnswer={onGameAnswer || (() => {})} />;
+    case "flower-choice":
+      return <FlowerChoiceSlide onChoice={onFlowerChoice || (() => {})} />;
+    case "flowers":
+      return <FlowersSlide choice={flowerChoice || "red"} />;
     case "question":
-      return <QuestionSlide onAnswer={onAnswer || (() => {})} />;
+      return (
+        <QuestionSlide
+          onAnswer={onMainAnswer || (() => {})}
+          flowerChoice={flowerChoice || "red"}
+        />
+      );
     case "answer":
       return <AnswerSlide answer={true} />;
     default:
@@ -598,32 +564,46 @@ function PaginationDots({
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [flowerChoice, setFlowerChoice] = useState<"red" | "white">("red");
   const [userAnswer, setUserAnswer] = useState<boolean | null>(null);
   const [displayAnswer, setDisplayAnswer] = useState(false);
 
-  const handleAnswer = (answer: boolean) => {
+  const handleGameAnswer = (answer: boolean) => {
+    if (!answer) {
+      setCurrentSlide(0);
+      return;
+    }
+    nextSlide();
+  };
+
+  const handleFlowerChoice = (choice: "red" | "white") => {
+    setFlowerChoice(choice);
+    nextSlide();
+  };
+
+  const handleMainAnswer = (answer: boolean) => {
     setUserAnswer(answer);
     setDisplayAnswer(true);
     setTimeout(() => {
-      setCurrentSlide(6);
+      setCurrentSlide(4);
     }, 300);
   };
 
   const nextSlide = useCallback(() => {
-    if (currentSlide === 5) return;
+    if (currentSlide === 3) return;
     setDirection(1);
-    setCurrentSlide((prev) => (prev + 1) % (slides.length - 1));
+    setCurrentSlide((prev) => prev + 1);
   }, [currentSlide]);
 
   const prevSlide = useCallback(() => {
-    if (currentSlide === 6) {
+    if (currentSlide === 4) {
       setDisplayAnswer(false);
       setUserAnswer(null);
-      setCurrentSlide(5);
+      setCurrentSlide(3);
       return;
     }
     setDirection(-1);
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    setCurrentSlide((prev) => (prev - 1 >= 0 ? prev - 1 : 0));
   }, [currentSlide]);
 
   const goToSlide = (index: number) => {
@@ -717,7 +697,13 @@ export default function Home() {
             {displayAnswer && userAnswer !== null ? (
               <AnswerSlide answer={userAnswer} />
             ) : (
-              <SlideContent content={currentContent} onAnswer={handleAnswer} />
+              <SlideContent
+                content={currentContent}
+                onGameAnswer={handleGameAnswer}
+                onFlowerChoice={handleFlowerChoice}
+                onMainAnswer={handleMainAnswer}
+                flowerChoice={flowerChoice}
+              />
             )}
           </motion.div>
         </AnimatePresence>
@@ -744,7 +730,7 @@ export default function Home() {
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
         <PaginationDots
           currentSlide={currentSlide}
-          totalSlides={Math.min(slides.length - 1, currentSlide + 2)}
+          totalSlides={Math.min(5, currentSlide + 2)}
           onDotClick={goToSlide}
         />
       </div>
