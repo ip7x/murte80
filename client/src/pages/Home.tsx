@@ -277,7 +277,6 @@ function GameSlide({ onAnswer }: GameSlideProps) {
       exit={{ opacity: 0 }}
     >
       <HelloKitty image={image1} />
-      <Avatar />
 
       <motion.div
         className="text-center"
