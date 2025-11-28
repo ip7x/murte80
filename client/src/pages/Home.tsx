@@ -511,7 +511,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
           تحبيني؟
         </h2>
         <p className="text-pink-300 text-lg" dir="rtl">
-          ما فيك تهربين مني 😉
+          لا تحاولين كل دروبج ترجعيلي 😉
         </p>
       </motion.div>
       <motion.div
