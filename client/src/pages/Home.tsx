@@ -1,12 +1,13 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Heart, Sparkles, Music, Volume2, VolumeX, Play, Pause } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart, Sparkles, Music, Volume2, VolumeX, Play, Pause, SkipBack, SkipForward } from "lucide-react";
 import image1 from "@assets/matching lockscreen batman and hello kitty_1764351307925.jpeg";
 import image2 from "@assets/Lily_1764351307926.jpeg";
 import image3 from "@assets/Batman & hello kitty_1764351307927.jpeg";
 import image4 from "@assets/توت👸🏻⟡ نايف 🦸🏻_♂️ on TikTok_1764351307928.jpeg";
 import gifImage from "@assets/From KlickPin CF Hello Kitty GIF _ Imagens animadas gif Coisas da hello kitty Emoticons animados_1764351307929.gif";
-import audioFile from "@assets/عينك - غيث صباح الاصدار الخامس من _1764357789556.mp3";
+import audioFile1 from "@assets/عينك - غيث صباح الاصدار الخامس من _1764357789556.mp3";
+import audioFile2 from "@assets/ريمييي_1764359852296.mp3";
 
 interface DecorativeCircle {
   id: number;
@@ -766,7 +767,13 @@ export default function Home() {
   const [audioTime, setAudioTime] = useState(0);
   const [audioDuration, setAudioDuration] = useState(0);
   const [showTimeControl, setShowTimeControl] = useState(false);
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const songs = [
+    { id: 1, name: "عينك", file: audioFile1 },
+    { id: 2, name: "ريمييي", file: audioFile2 },
+  ];
 
   const handleGameAnswer = (answer: boolean) => {
     if (!answer) {
@@ -864,6 +871,22 @@ export default function Home() {
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
+  const handlePreviousSong = () => {
+    setCurrentSongIndex((prev) => (prev === 0 ? songs.length - 1 : prev - 1));
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+    }
+  };
+
+  const handleNextSong = () => {
+    setCurrentSongIndex((prev) => (prev === songs.length - 1 ? 0 : prev + 1));
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+    }
+  };
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") {
@@ -928,7 +951,7 @@ export default function Home() {
   return (
     <div className="relative w-full h-screen bg-gradient-to-br from-[#2d1b4e] via-[#3d2a5f] to-[#1a0f3d] flex flex-col items-center justify-center overflow-hidden">
       {/* Audio Element */}
-      <audio ref={audioRef} src={audioFile} loop />
+      <audio ref={audioRef} src={songs[currentSongIndex].file} loop />
       {/* Audio Control Section */}
       <motion.div
         className="absolute top-4 right-4 flex flex-col gap-3 z-50"
@@ -937,6 +960,17 @@ export default function Home() {
         transition={{ delay: 0.5 }}
       >
         <div className="flex gap-2 items-center">
+          <motion.button
+            onClick={handlePreviousSong}
+            className="p-3 rounded-full bg-blue-500 hover:bg-blue-600 text-white transition-colors"
+            data-testid="button-prev-song"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            title="الأغنية السابقة"
+          >
+            <SkipBack className="w-5 h-5" />
+          </motion.button>
+
           <motion.button
             onClick={toggleAudio}
             className="p-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white transition-colors"
@@ -953,6 +987,17 @@ export default function Home() {
           </motion.button>
 
           <motion.button
+            onClick={handleNextSong}
+            className="p-3 rounded-full bg-blue-500 hover:bg-blue-600 text-white transition-colors"
+            data-testid="button-next-song"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            title="الأغنية التالية"
+          >
+            <SkipForward className="w-5 h-5" />
+          </motion.button>
+
+          <motion.button
             onClick={() => setShowTimeControl(!showTimeControl)}
             className="p-3 rounded-full bg-purple-500 hover:bg-purple-600 text-white transition-colors text-sm font-semibold"
             data-testid="button-time-control"
@@ -963,6 +1008,16 @@ export default function Home() {
             ⏱️
           </motion.button>
         </div>
+
+        {/* Song Info Display */}
+        <motion.div
+          initial={{ opacity: 0, y: -5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="text-white text-sm text-center bg-white/10 backdrop-blur-md rounded-lg px-3 py-2"
+        >
+          🎵 {songs[currentSongIndex].name}
+        </motion.div>
 
         {/* Time Control Panel */}
         <motion.div
