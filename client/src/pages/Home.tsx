@@ -501,7 +501,6 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
           </motion.p>
         ))}
       </motion.div>
-
       <motion.div
         className="text-center"
         initial={{ opacity: 0, scale: 0.8 }}
@@ -515,7 +514,6 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
           ما فيك تهربين مني 😉
         </p>
       </motion.div>
-
       <motion.div
         className="flex gap-8 items-center"
         initial={{ opacity: 0, y: 20 }}
@@ -553,7 +551,6 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
           نعم
         </motion.button>
       </motion.div>
-
       {noAttempts > 0 && noAttempts < 3 && (
         <motion.p
           className="text-lg text-white/60 text-center"
@@ -562,9 +559,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
           data-testid="hint-message"
-        >
-          كل ما تقولين لا، تقربين أكثر 😊
-        </motion.p>
+        >لازك بيج ما اعوفجج😊</motion.p>
       )}
     </motion.div>
   );
