@@ -484,7 +484,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
   };
 
   const narrativeSteps = [
-    "من أول ما شفتك...",
+    "بصراحة اني احبج وريد نكون سوة ونتِ",
     "عرفت إنك خلقتي لي",
     "كل لحظة معاك حياة جديدة",
   ];
