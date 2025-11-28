@@ -8,6 +8,7 @@ import image4 from "@assets/توت👸🏻⟡ نايف 🦸🏻_♂️ on TikTok
 import gifImage from "@assets/From KlickPin CF Hello Kitty GIF _ Imagens animadas gif Coisas da hello kitty Emoticons animados_1764351307929.gif";
 import audioFile1 from "@assets/عينك - غيث صباح الاصدار الخامس من _1764357789556.mp3";
 import audioFile2 from "@assets/ريمييي_1764359852296.mp3";
+import audioFile3 from "@assets/Mohammed Abdul Jabbar - Antah Tahbani (Official Audio) محمد عبد الجبار انت تحبني(mp3j.cc)_1764359996919.mp3";
 
 interface DecorativeCircle {
   id: number;
@@ -773,6 +774,7 @@ export default function Home() {
   const songs = [
     { id: 1, name: "عينك", file: audioFile1 },
     { id: 2, name: "ريمييي", file: audioFile2 },
+    { id: 3, name: "انت تحبني", file: audioFile3 },
   ];
 
   const handleGameAnswer = (answer: boolean) => {
