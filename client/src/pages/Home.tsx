@@ -835,28 +835,14 @@ export default function Home() {
       setAudioDuration(audio.duration);
     };
 
-    const handleCanPlay = () => {
-      if (isAudioPlaying) {
-        audio.play().catch(() => {
-          setIsAudioPlaying(false);
-        });
-      }
-    };
-
     audio.addEventListener("timeupdate", handleTimeUpdate);
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
-    audio.addEventListener("canplay", handleCanPlay);
-
-    audio.play().catch(() => {
-      setIsAudioPlaying(false);
-    });
 
     return () => {
       audio.removeEventListener("timeupdate", handleTimeUpdate);
       audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
-      audio.removeEventListener("canplay", handleCanPlay);
     };
-  }, [isAudioPlaying]);
+  }, []);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -867,9 +853,11 @@ export default function Home() {
         audio.currentTime = 0;
         if (isAudioPlaying) {
           await audio.play();
+        } else {
+          audio.pause();
         }
       } catch (err) {
-        setIsAudioPlaying(false);
+        console.log("Audio control error:", err);
       }
     };
 
@@ -880,10 +868,13 @@ export default function Home() {
     if (audioRef.current) {
       if (isAudioPlaying) {
         audioRef.current.pause();
+        setIsAudioPlaying(false);
       } else {
-        audioRef.current.play();
+        audioRef.current.play().catch(() => {
+          console.log("Auto-play prevented by browser");
+        });
+        setIsAudioPlaying(true);
       }
-      setIsAudioPlaying(!isAudioPlaying);
     }
   };
 
