@@ -475,14 +475,14 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
 
   return (
     <motion.div
-      className="flex flex-col items-center justify-center gap-8 px-4"
+      className="flex flex-col items-center justify-center gap-6 sm:gap-8 px-4 w-full"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
       <HelloKitty image={image4} />
       <motion.div
-        className="text-center space-y-4 max-w-lg"
+        className="text-center space-y-4 w-full max-w-lg px-2"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
@@ -490,7 +490,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
         {narrativeSteps.map((step, idx) => (
           <motion.p
             key={idx}
-            className="text-lg text-white/80 italic"
+            className="text-sm sm:text-lg text-white/80 italic"
             dir="rtl"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -502,18 +502,18 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
         ))}
       </motion.div>
       <motion.div
-        className="text-center"
+        className="text-center w-full px-2"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1, type: "spring", stiffness: 200 }}
       >
-        <h2 className="text-4xl font-bold text-white mb-2" dir="rtl" data-testid="main-question">تحبيني لو لا؟</h2>
-        <p className="text-pink-300 text-lg" dir="rtl">
+        <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2" dir="rtl" data-testid="main-question">تحبيني لو لا؟</h2>
+        <p className="text-pink-300 text-sm sm:text-lg" dir="rtl">
           لا تحاولين كل دروبج ترجعيلي 😉
         </p>
       </motion.div>
       <motion.div
-        className="flex gap-8 items-center"
+        className="flex flex-col sm:flex-row gap-4 sm:gap-8 items-center justify-center w-full px-2"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2 }}
@@ -549,7 +549,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
       </motion.div>
       {noAttempts > 0 && noAttempts < 3 && (
         <motion.p
-          className="text-lg text-white/60 text-center"
+          className="text-sm sm:text-lg text-white/60 text-center px-2 w-full"
           dir="rtl"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
