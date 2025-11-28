@@ -131,9 +131,8 @@ function WelcomeSlide() {
           className="text-3xl font-bold text-white mb-2"
           dir="rtl"
           data-testid="text-greeting-title"
-        >
-          هلوو اسراء
-        </h1>
+        >هلوو ريمي
+</h1>
         <motion.p
           className="text-pink-300 text-xl tracking-widest"
           animate={{ opacity: [0.5, 1, 0.5] }}
