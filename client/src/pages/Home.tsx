@@ -386,17 +386,20 @@ export default function Home() {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   }, []);
 
-  const goToSlide = useCallback((index: number) => {
-    setDirection(index > currentSlide ? 1 : -1);
-    setCurrentSlide(index);
-  }, [currentSlide]);
+  const goToSlide = (index: number) => {
+    setCurrentSlide((prev) => {
+      if (index === prev) return prev;
+      setDirection(index > prev ? 1 : -1);
+      return index;
+    });
+  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") {
-        prevSlide();
-      } else if (e.key === "ArrowLeft") {
         nextSlide();
+      } else if (e.key === "ArrowLeft") {
+        prevSlide();
       }
     };
 
