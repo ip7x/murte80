@@ -763,6 +763,9 @@ export default function Home() {
   const [userAnswer, setUserAnswer] = useState<boolean | null>(null);
   const [displayAnswer, setDisplayAnswer] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(true);
+  const [audioTime, setAudioTime] = useState(0);
+  const [audioDuration, setAudioDuration] = useState(0);
+  const [showTimeControl, setShowTimeControl] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const handleGameAnswer = (answer: boolean) => {
@@ -812,11 +815,28 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.play().catch(() => {
-        setIsAudioPlaying(false);
-      });
-    }
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handleTimeUpdate = () => {
+      setAudioTime(audio.currentTime);
+    };
+
+    const handleLoadedMetadata = () => {
+      setAudioDuration(audio.duration);
+    };
+
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+
+    audio.play().catch(() => {
+      setIsAudioPlaying(false);
+    });
+
+    return () => {
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+    };
   }, []);
 
   const toggleAudio = () => {
@@ -828,6 +848,20 @@ export default function Home() {
       }
       setIsAudioPlaying(!isAudioPlaying);
     }
+  };
+
+  const handleTimeChange = (newTime: number) => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = newTime;
+      setAudioTime(newTime);
+    }
+  };
+
+  const formatTime = (seconds: number) => {
+    if (!seconds || isNaN(seconds)) return "0:00";
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
   useEffect(() => {
@@ -896,23 +930,68 @@ export default function Home() {
       {/* Audio Element */}
       <audio ref={audioRef} src={audioFile} loop />
 
-      {/* Audio Control Button */}
-      <motion.button
-        onClick={toggleAudio}
-        className="absolute top-4 right-4 p-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white transition-colors z-50"
-        data-testid="button-audio-toggle"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
+      {/* Audio Control Section */}
+      <motion.div
+        className="absolute top-4 right-4 flex flex-col gap-3 z-50"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
       >
-        {isAudioPlaying ? (
-          <Volume2 className="w-5 h-5" />
-        ) : (
-          <VolumeX className="w-5 h-5" />
-        )}
-      </motion.button>
+        <div className="flex gap-2 items-center">
+          <motion.button
+            onClick={toggleAudio}
+            className="p-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white transition-colors"
+            data-testid="button-audio-toggle"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {isAudioPlaying ? (
+              <Volume2 className="w-5 h-5" />
+            ) : (
+              <VolumeX className="w-5 h-5" />
+            )}
+          </motion.button>
+
+          <motion.button
+            onClick={() => setShowTimeControl(!showTimeControl)}
+            className="p-3 rounded-full bg-purple-500 hover:bg-purple-600 text-white transition-colors text-sm font-semibold"
+            data-testid="button-time-control"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            title="تعديل الدقيقة"
+          >
+            ⏱️
+          </motion.button>
+        </div>
+
+        {/* Time Control Panel */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{
+            opacity: showTimeControl ? 1 : 0,
+            y: showTimeControl ? 0 : -10,
+            pointerEvents: showTimeControl ? "auto" : "none",
+          }}
+          transition={{ duration: 0.2 }}
+          className="bg-white/10 backdrop-blur-md rounded-lg p-4 min-w-max"
+        >
+          <div className="text-white text-sm mb-3 text-center font-semibold">
+            {formatTime(audioTime)} / {formatTime(audioDuration)}
+          </div>
+          <input
+            type="range"
+            min="0"
+            max={audioDuration || 0}
+            value={audioTime}
+            onChange={(e) => handleTimeChange(parseFloat(e.target.value))}
+            className="w-48 h-2 bg-pink-300/30 rounded-lg appearance-none cursor-pointer accent-pink-500"
+            data-testid="slider-audio-time"
+          />
+          <div className="text-white text-xs mt-2 text-center">
+            اسحب للتحكم في الدقيقة
+          </div>
+        </motion.div>
+      </motion.div>
 
       {/* Decorative Circles */}
       {decorativeCircles.map((circle) => (
