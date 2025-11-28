@@ -545,9 +545,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
           data-testid="button-yes-main"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-        >
-          نعم
-        </motion.button>
+        >💖احبكك</motion.button>
       </motion.div>
       {noAttempts > 0 && noAttempts < 3 && (
         <motion.p
