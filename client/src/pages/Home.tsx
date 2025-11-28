@@ -676,7 +676,6 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
           </motion.p>
         ))}
       </motion.div>
-
       <motion.div
         className="mt-8"
         initial={{ opacity: 0 }}
@@ -693,9 +692,7 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
             <p className="text-2xl text-white font-semibold" dir="rtl">
               شكراً لأنك اختريتيني 🌹
             </p>
-            <p className="text-pink-300">
-              ❤️ وأني بختارك كل يوم ❤️
-            </p>
+            <p className="text-pink-300">❤️واني هم حكون شريك حياتج وحبيبج</p>
           </motion.div>
         ) : (
           <motion.div
