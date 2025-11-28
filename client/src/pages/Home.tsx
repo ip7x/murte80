@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Heart, Sparkles, Music, Volume2, VolumeX } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart, Sparkles, Music, Volume2, VolumeX, Play, Pause } from "lucide-react";
 import image1 from "@assets/matching lockscreen batman and hello kitty_1764351307925.jpeg";
 import image2 from "@assets/Lily_1764351307926.jpeg";
 import image3 from "@assets/Batman & hello kitty_1764351307927.jpeg";
@@ -940,14 +940,15 @@ export default function Home() {
           <motion.button
             onClick={toggleAudio}
             className="p-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white transition-colors"
-            data-testid="button-audio-toggle"
+            data-testid="button-audio-play-pause"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
+            title={isAudioPlaying ? "إيقاف" : "تشغيل"}
           >
             {isAudioPlaying ? (
-              <Volume2 className="w-5 h-5" />
+              <Pause className="w-5 h-5" />
             ) : (
-              <VolumeX className="w-5 h-5" />
+              <Play className="w-5 h-5" />
             )}
           </motion.button>
 
