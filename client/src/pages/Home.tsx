@@ -372,9 +372,10 @@ function FlowerChoiceSlide({ onChoice }: FlowerChoiceSlideProps) {
 
 interface FlowersSlideProps {
   choice: "red" | "white";
+  onNext?: () => void;
 }
 
-function FlowersSlide({ choice }: FlowersSlideProps) {
+function FlowersSlide({ choice, onNext }: FlowersSlideProps) {
   const flowers = Array.from({ length: 8 }, (_, i) => ({
     id: i,
     x: Math.random() * 60 + 20,
@@ -437,6 +438,19 @@ function FlowersSlide({ choice }: FlowersSlideProps) {
         </p>
       </motion.div>
     </motion.div>
+
+    <motion.button
+      onClick={onNext}
+      className="px-10 py-4 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-lg transition-colors"
+      data-testid="button-continue-flowers"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.8 }}
+      whileHover={{ scale: 1.08 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      نكمل ✨
+    </motion.button>
     </motion.div>
   );
 }
@@ -683,6 +697,7 @@ interface SlideContentProps {
   content: Slide["content"];
   onGameAnswer?: (answer: boolean) => void;
   onFlowerChoice?: (choice: "red" | "white") => void;
+  onFlowersNext?: () => void;
   onMainAnswer?: (answer: boolean) => void;
   flowerChoice?: "red" | "white";
 }
@@ -691,6 +706,7 @@ function SlideContent({
   content,
   onGameAnswer,
   onFlowerChoice,
+  onFlowersNext,
   onMainAnswer,
   flowerChoice,
 }: SlideContentProps) {
@@ -700,7 +716,7 @@ function SlideContent({
     case "flower-choice":
       return <FlowerChoiceSlide onChoice={onFlowerChoice || (() => {})} />;
     case "flowers":
-      return <FlowersSlide choice={flowerChoice || "red"} />;
+      return <FlowersSlide choice={flowerChoice || "red"} onNext={onFlowersNext} />;
     case "question":
       return (
         <QuestionSlide
