@@ -322,7 +322,7 @@ function FlowerChoiceSlide({ onChoice }: FlowerChoiceSlideProps) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
       >
-        <p className="text-3xl text-white mb-2" dir="rtl" data-testid="flower-question">هممم سأل:</p>
+        <p className="text-3xl text-white mb-2" dir="rtl" data-testid="flower-question">هممم سوأل:</p>
         <p className="text-2xl text-pink-300" dir="rtl">
           إيش تختارين، الأحمر ولا الأبيض؟
         </p>
