@@ -173,13 +173,13 @@ function GameSlide({ onAnswer }: GameSlideProps) {
         transition={{ delay: 0.3 }}
       >
         <p className="text-4xl font-bold text-white mb-6" dir="rtl" data-testid="greeting-name">
-          مرحباً ريمي 💕
+          هاي يا ريمي 💕
         </p>
         <p className="text-2xl text-pink-300 mb-4" dir="rtl">
-          تحديتك لعبة شغيفة 😏
+          جاهزة لعبة ؟ 😏
         </p>
         <p className="text-lg text-white/70" dir="rtl">
-          اللي تخسرين فيها تقعدين معاي 😉
+          اللي تخسرين معاي ما تهربين 😉
         </p>
       </motion.div>
 
@@ -193,7 +193,7 @@ function GameSlide({ onAnswer }: GameSlideProps) {
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
       >
-        تمام، خذ لعبتك ✨
+        يلا نبدا الحين ✨
       </motion.button>
     </motion.div>
   );
@@ -221,7 +221,7 @@ function FlowerChoiceSlide({ onChoice }: FlowerChoiceSlideProps) {
           السؤال الأول:
         </p>
         <p className="text-2xl text-pink-300" dir="rtl">
-          تحبين الورد الأحمر ولا الأبيض؟
+          إيش تختارين، الأحمر ولا الأبيض؟
         </p>
       </motion.div>
 
@@ -313,7 +313,7 @@ function FlowersSlide({ choice }: FlowersSlideProps) {
           {isRed ? "تحبين الورد الأحمر 🌹" : "تحبين الورد الأبيض 🤍"}
         </p>
         <p className="text-xl text-pink-300 mt-4" dir="rtl">
-          {isRed ? "أحمر زين مثل خدك لما تخجلين" : "أبيض نقي مثل روحك"}
+          {isRed ? "أحمر مثل احمرار خدك" : "أبيض نقي مثل روحك"}
         </p>
       </motion.div>
     </motion.div>
@@ -336,9 +336,9 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
   };
 
   const narrativeSteps = [
-    "من أول لما شفتك...",
-    "عرفت إنك لا يتوكلون",
-    "كل دقيقة معاك تستاهل الدنيا",
+    "من أول ما شفتك...",
+    "عرفت إنك خلقتي لي",
+    "كل لحظة معاك حياة جديدة",
   ];
 
   return (
@@ -376,7 +376,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
         transition={{ delay: 1, type: "spring", stiffness: 200 }}
       >
         <h2 className="text-4xl font-bold text-white mb-2" dir="rtl" data-testid="main-question">
-          تحبيني أنا ريمي؟
+          تحبيني؟
         </h2>
         <p className="text-pink-300 text-lg" dir="rtl">
           ما فيك تهربين مني 😉
@@ -396,7 +396,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          {noAttempts === 0 ? "لا" : noAttempts === 1 ? "لا (حاول مجدد)" : "يالله نعم ❤️"}
+          {noAttempts === 0 ? "لا" : noAttempts === 1 ? "لا مرة ثانية" : "يالله نعم ❤️"}
         </motion.button>
 
         <motion.button
@@ -419,7 +419,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
           transition={{ delay: 0.3 }}
           data-testid="hint-message"
         >
-          كل محاولة للهروب تقربك أكثر مني... 💕
+          كل ما تقولين لا، تقربين أكثر 😊
         </motion.p>
       )}
     </motion.div>
@@ -432,15 +432,15 @@ interface AnswerSlideProps {
 
 function AnswerSlide({ answer }: AnswerSlideProps) {
   const yesContinuation = [
-    "أني عرفت هالشي من زمان",
-    "شفت نور العين وأنتِ تقولين",
-    "والحين أنتِ تقولينها برنة صريح",
+    "كنت أتوقع إي من البداية",
+    "شفت الحب في عيونك",
+    "والحين بتقولينها بصراحة",
   ];
 
   const noContinuation = [
-    "بس أعينك تقول قصة ثانية",
-    "محاولتك للهروب قربتك أكثر",
-    "الحب ما كله سهل في البدايات",
+    "بس الحب بعينك واضح",
+    "محاولة الهروب خليتك أقرب",
+    "الحب ما يكون سهل في البدايات",
   ];
 
   const continuation = answer ? yesContinuation : noContinuation;
@@ -468,7 +468,7 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
           transition={{ type: "spring", stiffness: 200 }}
           data-testid="answer-title"
         >
-          {answer ? "أني أعرف! 💕" : "هالجواب ما صاح..."}
+          {answer ? "عرفتها من الأول! 💕" : "إي هالجواب ما صح..."}
         </motion.h3>
 
         {continuation.map((line, idx) => (
@@ -500,10 +500,10 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
             transition={{ type: "spring", stiffness: 200, delay: 1.2 }}
           >
             <p className="text-2xl text-white font-semibold" dir="rtl">
-              شكراً لأنك اختريتي 🌹
+              شكراً لأنك اختريتيني 🌹
             </p>
             <p className="text-pink-300">
-              ❤️ وأني سأختارك كل يوم ❤️
+              ❤️ وأني بختارك كل يوم ❤️
             </p>
           </motion.div>
         ) : (
@@ -514,10 +514,10 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
             transition={{ type: "spring", stiffness: 200, delay: 1.2 }}
           >
             <p className="text-2xl text-white font-semibold" dir="rtl">
-              أني صابر بس محبوس بك 😊
+              أني صابر لك بس محصور بك 😊
             </p>
             <p className="text-yellow-300">
-              🌟 ما تقدري تهربي من قلب يحبك 🌟
+              🌟 ما تقدري تهربي من حب مثل حبي 🌟
             </p>
           </motion.div>
         )}
