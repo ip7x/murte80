@@ -593,7 +593,7 @@ interface AnswerSlideProps {
 function AnswerSlide({ answer }: AnswerSlideProps) {
   const yesContinuation = [
     "اطشلك من تجي على الدرب",
-    "شفت الحب في عيونك",
+    "بوسات وزرعلك السجة ورد",
     "والحين بتقولينها بصراحة",
   ];
 
