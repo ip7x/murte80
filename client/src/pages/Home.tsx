@@ -1,7 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Heart, Sparkles } from "lucide-react";
-import avatarImage from "@assets/Lily_1764351307926.jpeg";
+import image1 from "@assets/matching lockscreen batman and hello kitty_1764351307925.jpeg";
+import image2 from "@assets/Lily_1764351307926.jpeg";
+import image3 from "@assets/Batman & hello kitty_1764351307927.jpeg";
+import image4 from "@assets/توت👸🏻⟡ نايف 🦸🏻_♂️ on TikTok_1764351307928.jpeg";
 import gifImage from "@assets/From KlickPin CF Hello Kitty GIF _ Imagens animadas gif Coisas da hello kitty Emoticons animados_1764351307929.gif";
 
 interface DecorativeCircle {
@@ -102,7 +105,7 @@ function FloatingHeart() {
   );
 }
 
-function HelloKitty() {
+function HelloKitty({ image }: { image: string }) {
   const [hearts, setHearts] = useState<number[]>([0]);
 
   useEffect(() => {
@@ -138,8 +141,8 @@ function HelloKitty() {
         }}
       >
         <motion.img
-          src={avatarImage}
-          alt="Hello Kitty & Batman"
+          src={image}
+          alt="Hello Kitty"
           className="w-full h-full object-cover"
           animate={{
             scale: [1, 1.05, 1],
@@ -273,7 +276,7 @@ function GameSlide({ onAnswer }: GameSlideProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <HelloKitty />
+      <HelloKitty image={image1} />
       <Avatar />
 
       <motion.div
@@ -321,7 +324,7 @@ function FlowerChoiceSlide({ onChoice }: FlowerChoiceSlideProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <HelloKitty />
+      <HelloKitty image={image2} />
       <motion.div
         className="text-center"
         initial={{ opacity: 0, scale: 0.8 }}
@@ -388,7 +391,7 @@ function FlowersSlide({ choice }: FlowersSlideProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <HelloKitty />
+      <HelloKitty image={image3} />
       <motion.div
         className="relative w-full h-96 flex items-center justify-center overflow-hidden"
         initial={{ opacity: 0 }}
@@ -467,7 +470,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <HelloKitty />
+      <HelloKitty image={image4} />
       <motion.div
         className="text-center space-y-4 max-w-lg"
         initial={{ opacity: 0, y: -20 }}
@@ -572,7 +575,37 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <HelloKitty />
+      <motion.div className="relative">
+        <motion.img
+          src={gifImage}
+          alt="Hello Kitty GIF"
+          className="w-32 h-32 rounded-2xl shadow-2xl border-4 border-pink-400/50 object-cover"
+          initial={{ scale: 0, y: -30 }}
+          animate={{
+            scale: 1,
+            y: [0, -8, 0],
+          }}
+          transition={{
+            scale: { type: "spring", stiffness: 150, damping: 12 },
+            y: {
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            },
+          }}
+        />
+        <motion.div
+          className="absolute inset-0 w-32 h-32 rounded-2xl bg-gradient-to-r from-pink-400/30 to-purple-400/30 blur-xl"
+          animate={{
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </motion.div>
       <motion.div
         className="text-center space-y-4 max-w-lg"
         initial={{ opacity: 0, y: -20 }}
