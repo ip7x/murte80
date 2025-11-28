@@ -556,7 +556,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          {noAttempts === 0 ? "لا" : noAttempts === 1 ? "لا مرة ثانية" : "يالله نعم ❤️"}
+          {noAttempts === 0 ? "لا" : noAttempts === 1 ? "لا مرة ثانية" : "جربي وضغطي مرة ثانية"}
         </motion.button>
 
         <motion.button
