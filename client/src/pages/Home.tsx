@@ -592,7 +592,7 @@ interface AnswerSlideProps {
 
 function AnswerSlide({ answer }: AnswerSlideProps) {
   const yesContinuation = [
-    "كنت أتوقع إي من البداية",
+    "اطشلك من تجي على الدرب",
     "شفت الحب في عيونك",
     "والحين بتقولينها بصراحة",
   ];
