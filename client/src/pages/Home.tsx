@@ -287,9 +287,7 @@ function GameSlide({ onAnswer }: GameSlideProps) {
         <p className="text-2xl text-pink-300 mb-4" dir="rtl">
           تعالي خلي نلعب سوة ؟ 😏
         </p>
-        <p className="text-lg text-white/70" dir="rtl">
-          اللي تخسرين معاي ما تهربين 😉
-        </p>
+        <p className="text-lg text-white/70" dir="rtl">الي يخسر يبوس خد الثاني 😉</p>
       </motion.div>
       <motion.button
         onClick={() => onAnswer(true)}
