@@ -418,7 +418,7 @@ function FlowersSlide({ choice, onNext }: FlowersSlideProps) {
         transition={{ delay: 0.3, type: "spring" }}
       >
         <p className="text-3xl text-white" dir="rtl" data-testid="flower-message">
-          {isRed ? "تحبين الورد الأحمر 🌹" : "تحبين الورد الأبيض 🤍"}
+          {isRed ? "صحيح بس مع الأسف اني طماع 🌹" : "تحبين الورد الأبيض 🤍"}
         </p>
         <p className="text-xl text-pink-300 mt-4" dir="rtl">
           {isRed ? "أحمر مثل احمرار خدك" : "أبيض نقي مثل روحك"}
