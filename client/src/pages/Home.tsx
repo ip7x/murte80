@@ -9,6 +9,7 @@ import gifImage from "@assets/From KlickPin CF Hello Kitty GIF _ Imagens animada
 import audioFile1 from "@assets/عينك - غيث صباح الاصدار الخامس من _1764357789556.mp3";
 import audioFile2 from "@assets/ريمييي_1764359852296.mp3";
 import audioFile3 from "@assets/Mohammed Abdul Jabbar - Antah Tahbani (Official Audio) محمد عبد الجبار انت تحبني(mp3j.cc)_1764359996919.mp3";
+import flowerBg from "@assets/Blume_1764360236553.jpeg";
 
 interface DecorativeCircle {
   id: number;
@@ -963,6 +964,17 @@ export default function Home() {
 
   return (
     <div className="relative w-full h-screen bg-gradient-to-br from-[#2d1b4e] via-[#3d2a5f] to-[#1a0f3d] flex flex-col items-center justify-center overflow-hidden">
+      {/* Flower Background */}
+      <div
+        className="absolute inset-0 opacity-20 pointer-events-none"
+        style={{
+          backgroundImage: `url(${flowerBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+
       {/* Audio Element */}
       <audio ref={audioRef} src={songs[currentSongIndex].file} loop />
       {/* Audio Control Section */}
