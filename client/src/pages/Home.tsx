@@ -157,7 +157,7 @@ function HelloKitty({ image }: { image: string }) {
 
       {/* Glow Effect */}
       <motion.div
-        className="absolute inset-0 w-32 h-32 rounded-2xl bg-gradient-to-r from-pink-400/30 to-purple-400/30 blur-xl top-8"
+        className="absolute inset-0 w-32 h-32 rounded-2xl bg-gradient-to-r from-pink-400/30 to-purple-400/30 blur-xl top-12"
         animate={{
           opacity: [0.3, 0.6, 0.3],
         }}
