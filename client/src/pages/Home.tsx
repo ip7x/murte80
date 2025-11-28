@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart, Sparkles } from "lucide-react";
+import avatarImage from "@assets/Lily_1764351307926.jpeg";
+import gifImage from "@assets/From KlickPin CF Hello Kitty GIF _ Imagens animadas gif Coisas da hello kitty Emoticons animados_1764351307929.gif";
 
 interface DecorativeCircle {
   id: number;
@@ -75,38 +77,109 @@ function Rose({ color }: { color: "red" | "white" }) {
   );
 }
 
-function HelloKitty() {
+function FloatingHeart() {
+  const randomDelay = Math.random() * 0.5;
+  const randomDuration = 2 + Math.random() * 1;
+  const randomX = (Math.random() - 0.5) * 100;
+
   return (
     <motion.div
-      className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-200 to-pink-300 flex items-center justify-center shadow-lg"
-      initial={{ scale: 0, y: -20 }}
-      animate={{ scale: 1, y: 0 }}
-      transition={{ type: "spring", stiffness: 200, damping: 15 }}
+      className="absolute"
+      initial={{ y: 0, x: 0, opacity: 1 }}
+      animate={{
+        y: -100,
+        x: randomX,
+        opacity: 0,
+      }}
+      transition={{
+        duration: randomDuration,
+        delay: randomDelay,
+        ease: "easeOut",
+      }}
     >
-      <svg viewBox="0 0 100 100" className="w-16 h-16">
-        {/* Head */}
-        <circle cx="50" cy="50" r="35" fill="#ffffff" />
-        {/* Left Ear */}
-        <circle cx="30" cy="25" r="12" fill="#ffffff" stroke="#ffb6d9" strokeWidth="1.5" />
-        <circle cx="30" cy="25" r="8" fill="#ffb6d9" />
-        {/* Right Ear */}
-        <circle cx="70" cy="25" r="12" fill="#ffffff" stroke="#ffb6d9" strokeWidth="1.5" />
-        <circle cx="70" cy="25" r="8" fill="#ffb6d9" />
-        {/* Left Eye */}
-        <circle cx="40" cy="45" r="4" fill="#000000" />
-        <circle cx="41" cy="43" r="1.5" fill="#ffffff" />
-        {/* Right Eye */}
-        <circle cx="60" cy="45" r="4" fill="#000000" />
-        <circle cx="61" cy="43" r="1.5" fill="#ffffff" />
-        {/* Nose */}
-        <ellipse cx="50" cy="55" rx="2.5" ry="3" fill="#ffb6d9" />
-        {/* Mouth */}
-        <path d="M 50 55 Q 45 60 42 59" stroke="#000000" strokeWidth="1" fill="none" strokeLinecap="round" />
-        <path d="M 50 55 Q 55 60 58 59" stroke="#000000" strokeWidth="1" fill="none" strokeLinecap="round" />
-        {/* Bow */}
-        <circle cx="65" cy="28" r="5" fill="#ff1493" />
-        <ellipse cx="63" cy="26" rx="2" ry="3" fill="#ffffff" opacity="0.6" />
-      </svg>
+      <Heart className="w-4 h-4 text-pink-400 fill-pink-400" />
+    </motion.div>
+  );
+}
+
+function HelloKitty() {
+  const [hearts, setHearts] = useState<number[]>([0]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHearts((prev) => [...prev, prev.length]);
+    }, 500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <motion.div
+      className="relative"
+      initial={{ scale: 0, y: -30 }}
+      animate={{ scale: 1, y: 0 }}
+      transition={{ type: "spring", stiffness: 150, damping: 12 }}
+    >
+      {/* Floating Hearts */}
+      {hearts.map((heart) => (
+        <FloatingHeart key={heart} />
+      ))}
+
+      {/* Main Avatar Container */}
+      <motion.div
+        className="w-32 h-32 rounded-2xl overflow-hidden shadow-2xl border-4 border-pink-400/50"
+        animate={{
+          y: [0, -8, 0],
+          rotate: [0, 1, -1, 0],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <motion.img
+          src={avatarImage}
+          alt="Hello Kitty & Batman"
+          className="w-full h-full object-cover"
+          animate={{
+            scale: [1, 1.05, 1],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </motion.div>
+
+      {/* Glow Effect */}
+      <motion.div
+        className="absolute inset-0 w-32 h-32 rounded-2xl bg-gradient-to-r from-pink-400/30 to-purple-400/30 blur-xl"
+        animate={{
+          opacity: [0.3, 0.6, 0.3],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      {/* Sparkle decoration */}
+      <motion.div
+        className="absolute -top-2 -right-2"
+        animate={{
+          rotate: 360,
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+      >
+        <Sparkles className="w-6 h-6 text-yellow-300 fill-yellow-300" />
+      </motion.div>
     </motion.div>
   );
 }
