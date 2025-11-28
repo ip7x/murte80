@@ -33,6 +33,48 @@ const slides: Slide[] = [
   { id: 5, content: "answer" },
 ];
 
+function Rose({ color }: { color: "red" | "white" }) {
+  return (
+    <svg viewBox="0 0 100 100" className="w-12 h-12" fill="none">
+      {color === "red" ? (
+        <>
+          {/* Petals */}
+          <ellipse cx="50" cy="35" rx="8" ry="12" fill="#dc2626" transform="rotate(-20 50 35)" />
+          <ellipse cx="50" cy="35" rx="8" ry="12" fill="#ef4444" transform="rotate(20 50 35)" />
+          <ellipse cx="50" cy="35" rx="8" ry="12" fill="#dc2626" transform="rotate(60 50 35)" />
+          <ellipse cx="50" cy="35" rx="8" ry="12" fill="#ef4444" transform="rotate(-60 50 35)" />
+          <ellipse cx="50" cy="35" rx="8" ry="12" fill="#7f1d1d" transform="rotate(100 50 35)" />
+          <ellipse cx="50" cy="35" rx="8" ry="12" fill="#dc2626" transform="rotate(-100 50 35)" />
+          {/* Inner petals */}
+          <ellipse cx="50" cy="30" rx="6" ry="8" fill="#991b1b" />
+          {/* Stem */}
+          <path d="M 50 50 Q 45 70 40 85" stroke="#16a34a" strokeWidth="2" />
+          {/* Leaves */}
+          <ellipse cx="35" cy="65" rx="6" ry="10" fill="#22c55e" transform="rotate(-40 35 65)" />
+          <ellipse cx="55" cy="75" rx="6" ry="10" fill="#16a34a" transform="rotate(40 55 75)" />
+        </>
+      ) : (
+        <>
+          {/* White Rose Petals */}
+          <ellipse cx="50" cy="35" rx="8" ry="12" fill="#ffffff" transform="rotate(-20 50 35)" />
+          <ellipse cx="50" cy="35" rx="8" ry="12" fill="#f5f5f5" transform="rotate(20 50 35)" />
+          <ellipse cx="50" cy="35" rx="8" ry="12" fill="#ffffff" transform="rotate(60 50 35)" />
+          <ellipse cx="50" cy="35" rx="8" ry="12" fill="#f5f5f5" transform="rotate(-60 50 35)" />
+          <ellipse cx="50" cy="35" rx="8" ry="12" fill="#ffffff" transform="rotate(100 50 35)" />
+          <ellipse cx="50" cy="35" rx="8" ry="12" fill="#f5f5f5" transform="rotate(-100 50 35)" />
+          {/* Inner petals */}
+          <ellipse cx="50" cy="30" rx="6" ry="8" fill="#e5e5e5" />
+          {/* Stem */}
+          <path d="M 50 50 Q 45 70 40 85" stroke="#16a34a" strokeWidth="2" />
+          {/* Leaves */}
+          <ellipse cx="35" cy="65" rx="6" ry="10" fill="#22c55e" transform="rotate(-40 35 65)" />
+          <ellipse cx="55" cy="75" rx="6" ry="10" fill="#16a34a" transform="rotate(40 55 75)" />
+        </>
+      )}
+    </svg>
+  );
+}
+
 function FloatingCircle({ circle }: { circle: DecorativeCircle }) {
   return (
     <motion.div
@@ -126,44 +168,33 @@ function GameSlide({ onAnswer }: GameSlideProps) {
 
       <motion.div
         className="text-center"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
       >
-        <h1 className="text-4xl font-bold text-white mb-4" dir="rtl">
-          هلا اسراء 👋
-        </h1>
-        <p className="text-2xl text-pink-300 mb-6" dir="rtl" data-testid="game-question">
-          هل تريدين أن نلعب لعبة؟ 🎮
+        <p className="text-4xl font-bold text-white mb-6" dir="rtl" data-testid="greeting-name">
+          مرحباً ريمي 💕
+        </p>
+        <p className="text-2xl text-pink-300 mb-4" dir="rtl">
+          تحديتك لعبة شغيفة 😏
+        </p>
+        <p className="text-lg text-white/70" dir="rtl">
+          اللي تخسرين فيها تقعدين معاي 😉
         </p>
       </motion.div>
 
-      <motion.div
-        className="flex gap-8 items-center"
+      <motion.button
+        onClick={() => onAnswer(true)}
+        className="px-10 py-4 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-lg transition-colors"
+        data-testid="button-game-start"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
+        transition={{ delay: 0.6 }}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95 }}
       >
-        <motion.button
-          onClick={() => onAnswer(true)}
-          className="px-8 py-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-lg transition-colors"
-          data-testid="button-yes-game"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          نعم 😊
-        </motion.button>
-
-        <motion.button
-          onClick={() => onAnswer(false)}
-          className="px-8 py-3 rounded-full bg-white/20 hover:bg-white/30 text-white font-semibold text-lg transition-colors"
-          data-testid="button-no-game"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          لا 😔
-        </motion.button>
-      </motion.div>
+        تمام، خذ لعبتك ✨
+      </motion.button>
     </motion.div>
   );
 }
@@ -187,10 +218,10 @@ function FlowerChoiceSlide({ onChoice }: FlowerChoiceSlideProps) {
         transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
       >
         <p className="text-3xl text-white mb-2" dir="rtl" data-testid="flower-question">
-          سؤالي الأول لك:
+          السؤال الأول:
         </p>
         <p className="text-2xl text-pink-300" dir="rtl">
-          هل تحبين الورد الأحمر أم الأبيض؟ 🌹
+          تحبين الورد الأحمر ولا الأبيض؟
         </p>
       </motion.div>
 
@@ -202,24 +233,24 @@ function FlowerChoiceSlide({ onChoice }: FlowerChoiceSlideProps) {
       >
         <motion.button
           onClick={() => onChoice("red")}
-          className="px-8 py-4 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold text-lg transition-colors flex items-center gap-2"
+          className="px-8 py-4 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold text-lg transition-colors flex items-center gap-3"
           data-testid="button-red-flower"
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
         >
           <span>الأحمر</span>
-          <span className="text-2xl">🌹</span>
+          <Rose color="red" />
         </motion.button>
 
         <motion.button
           onClick={() => onChoice("white")}
-          className="px-8 py-4 rounded-full bg-white/30 hover:bg-white/40 text-white font-semibold text-lg transition-colors flex items-center gap-2"
+          className="px-8 py-4 rounded-full bg-white/30 hover:bg-white/40 text-white font-semibold text-lg transition-colors flex items-center gap-3"
           data-testid="button-white-flower"
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
         >
           <span>الأبيض</span>
-          <span className="text-2xl">🤍</span>
+          <Rose color="white" />
         </motion.button>
       </motion.div>
     </motion.div>
@@ -249,7 +280,7 @@ function FlowersSlide({ choice }: FlowersSlideProps) {
       {flowers.map((flower) => (
         <motion.div
           key={flower.id}
-          className="absolute text-6xl"
+          className="absolute"
           style={{
             left: `${flower.x}%`,
             bottom: "-50px",
@@ -268,7 +299,7 @@ function FlowersSlide({ choice }: FlowersSlideProps) {
           }}
           data-testid={`flower-${flower.id}`}
         >
-          {isRed ? "🌹" : "🤍"}
+          <Rose color={isRed ? "red" : "white"} />
         </motion.div>
       ))}
 
@@ -279,12 +310,10 @@ function FlowersSlide({ choice }: FlowersSlideProps) {
         transition={{ delay: 0.3, type: "spring" }}
       >
         <p className="text-3xl text-white" dir="rtl" data-testid="flower-message">
-          {isRed
-            ? "أنتِ تحبين الورد الأحمر 🌹"
-            : "أنتِ تحبين الورد الأبيض 🤍"}
+          {isRed ? "تحبين الورد الأحمر 🌹" : "تحبين الورد الأبيض 🤍"}
         </p>
         <p className="text-xl text-pink-300 mt-4" dir="rtl">
-          مثل احمرار خدودك عندما تخجلين 😊
+          {isRed ? "أحمر زين مثل خدك لما تخجلين" : "أبيض نقي مثل روحك"}
         </p>
       </motion.div>
     </motion.div>
@@ -307,9 +336,9 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
   };
 
   const narrativeSteps = [
-    "منذ اللحظة التي رأيتك فيها...",
-    "أدركت أن حياتي ستتغير إلى الأبد",
-    "كل لحظة معك تستحق الانتظار",
+    "من أول لما شفتك...",
+    "عرفت إنك لا يتوكلون",
+    "كل دقيقة معاك تستاهل الدنيا",
   ];
 
   return (
@@ -347,10 +376,10 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
         transition={{ delay: 1, type: "spring", stiffness: 200 }}
       >
         <h2 className="text-4xl font-bold text-white mb-2" dir="rtl" data-testid="main-question">
-          هل تحبيني؟
+          تحبيني أنا ريمي؟
         </h2>
         <p className="text-pink-300 text-lg" dir="rtl">
-          لا وجود لمهرب مني 😉
+          ما فيك تهربين مني 😉
         </p>
       </motion.div>
 
@@ -367,7 +396,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          {noAttempts === 0 ? "لا" : noAttempts === 1 ? "لا (حاول مجدداً)" : "نعم ❤️"}
+          {noAttempts === 0 ? "لا" : noAttempts === 1 ? "لا (حاول مجدد)" : "يالله نعم ❤️"}
         </motion.button>
 
         <motion.button
@@ -390,7 +419,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
           transition={{ delay: 0.3 }}
           data-testid="hint-message"
         >
-          كل محاولة للهروب تجعلك أقرب إليّ... 💕
+          كل محاولة للهروب تقربك أكثر مني... 💕
         </motion.p>
       )}
     </motion.div>
@@ -403,15 +432,15 @@ interface AnswerSlideProps {
 
 function AnswerSlide({ answer }: AnswerSlideProps) {
   const yesContinuation = [
-    "أنا أعرف ذلك في أعماق قلبك",
-    "شعرت به في كل نظرة، كل ابتسامة",
-    "والآن أنتِ تقولينها بكل جرأة",
+    "أني عرفت هالشي من زمان",
+    "شفت نور العين وأنتِ تقولين",
+    "والحين أنتِ تقولينها برنة صريح",
   ];
 
   const noContinuation = [
-    "لكن عينيك تخبرين قصة مختلفة",
-    "محاولتك للهروب جعلتك أقرب أكثر",
-    "الحب ليس دائماً سهلاً في البداية",
+    "بس أعينك تقول قصة ثانية",
+    "محاولتك للهروب قربتك أكثر",
+    "الحب ما كله سهل في البدايات",
   ];
 
   const continuation = answer ? yesContinuation : noContinuation;
@@ -439,7 +468,7 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
           transition={{ type: "spring", stiffness: 200 }}
           data-testid="answer-title"
         >
-          {answer ? "أنا أعرف! 💕" : "هذا ليس الجواب..."}
+          {answer ? "أني أعرف! 💕" : "هالجواب ما صاح..."}
         </motion.h3>
 
         {continuation.map((line, idx) => (
@@ -471,10 +500,10 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
             transition={{ type: "spring", stiffness: 200, delay: 1.2 }}
           >
             <p className="text-2xl text-white font-semibold" dir="rtl">
-              شكراً لأنك اختريتيني 🌹
+              شكراً لأنك اختريتي 🌹
             </p>
             <p className="text-pink-300">
-              ❤️ وأنا سأختارك كل يوم ❤️
+              ❤️ وأني سأختارك كل يوم ❤️
             </p>
           </motion.div>
         ) : (
@@ -485,10 +514,10 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
             transition={{ type: "spring", stiffness: 200, delay: 1.2 }}
           >
             <p className="text-2xl text-white font-semibold" dir="rtl">
-              أنا صبور... لكن محصور بك 😊
+              أني صابر بس محبوس بك 😊
             </p>
             <p className="text-yellow-300">
-              🌟 لا يمكنك الهروب من قلب يحبك 🌟
+              🌟 ما تقدري تهربي من قلب يحبك 🌟
             </p>
           </motion.div>
         )}
@@ -657,82 +686,87 @@ export default function Home() {
   }, [nextSlide, prevSlide]);
 
   const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
+    enter: (dir: number) => ({
+      x: dir > 0 ? 1000 : -1000,
       opacity: 0,
     }),
     center: {
+      zIndex: 1,
       x: 0,
       opacity: 1,
     },
-    exit: (direction: number) => ({
-      x: direction < 0 ? 300 : -300,
+    exit: (dir: number) => ({
+      zIndex: 0,
+      x: dir < 0 ? 1000 : -1000,
       opacity: 0,
     }),
   };
 
-  const currentContent = displayAnswer && userAnswer !== null ? "answer" : slides[currentSlide].content;
+  const currentContent = slides[currentSlide];
 
   return (
-    <div
-      className="min-h-screen w-full bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f0f23] relative overflow-hidden"
-      data-testid="greeting-container"
-    >
+    <div className="relative w-full h-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f0f23] flex flex-col items-center justify-center overflow-hidden">
+      {/* Decorative Circles */}
       {decorativeCircles.map((circle) => (
         <FloatingCircle key={circle.id} circle={circle} />
       ))}
 
-      <div className="absolute inset-0 flex items-center justify-center">
-        <AnimatePresence mode="wait" custom={direction}>
+      {/* Main Content */}
+      <div className="relative w-full h-full flex items-center justify-center px-4">
+        <AnimatePresence initial={false} custom={direction} mode="wait">
           <motion.div
-            key={currentSlide + (displayAnswer ? "-answer" : "")}
+            key={currentSlide}
             custom={direction}
             variants={slideVariants}
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="flex items-center justify-center w-full px-4"
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 },
+            }}
+            className="absolute w-full max-w-2xl"
           >
-            {displayAnswer && userAnswer !== null ? (
-              <AnswerSlide answer={userAnswer} />
-            ) : (
-              <SlideContent
-                content={currentContent}
-                onGameAnswer={handleGameAnswer}
-                onFlowerChoice={handleFlowerChoice}
-                onMainAnswer={handleMainAnswer}
-                flowerChoice={flowerChoice}
-              />
-            )}
+            <SlideContent
+              content={currentContent.content}
+              onGameAnswer={handleGameAnswer}
+              onFlowerChoice={handleFlowerChoice}
+              onMainAnswer={handleMainAnswer}
+              flowerChoice={flowerChoice}
+            />
           </motion.div>
         </AnimatePresence>
       </div>
 
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-        data-testid="button-prev"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft className="w-6 h-6 text-white" />
-      </button>
+      {/* Navigation */}
+      <div className="absolute bottom-8 left-0 right-0 flex justify-center items-center gap-8">
+        <motion.button
+          onClick={prevSlide}
+          className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+          data-testid="button-prev"
+          disabled={currentSlide === 0}
+          whileHover={{ scale: currentSlide !== 0 ? 1.1 : 1 }}
+          whileTap={{ scale: currentSlide !== 0 ? 0.95 : 1 }}
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </motion.button>
 
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-        data-testid="button-next"
-        aria-label="Next slide"
-      >
-        <ChevronRight className="w-6 h-6 text-white" />
-      </button>
-
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
         <PaginationDots
           currentSlide={currentSlide}
-          totalSlides={Math.min(5, currentSlide + 2)}
+          totalSlides={slides.length}
           onDotClick={goToSlide}
         />
+
+        <motion.button
+          onClick={nextSlide}
+          className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+          data-testid="button-next"
+          disabled={currentSlide === slides.length - 1}
+          whileHover={{ scale: currentSlide !== slides.length - 1 ? 1.1 : 1 }}
+          whileTap={{ scale: currentSlide !== slides.length - 1 ? 0.95 : 1 }}
+        >
+          <ChevronRight className="w-6 h-6" />
+        </motion.button>
       </div>
     </div>
   );
