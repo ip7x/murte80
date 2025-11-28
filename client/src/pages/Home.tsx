@@ -22,15 +22,16 @@ const decorativeCircles: DecorativeCircle[] = [
 
 interface Slide {
   id: number;
-  content: "game" | "flower-choice" | "flowers" | "question" | "answer";
+  content: "game" | "flower-choice" | "flowers" | "hand-offer" | "question" | "answer";
 }
 
 const slides: Slide[] = [
   { id: 1, content: "game" },
   { id: 2, content: "flower-choice" },
   { id: 3, content: "flowers" },
-  { id: 4, content: "question" },
-  { id: 5, content: "answer" },
+  { id: 4, content: "hand-offer" },
+  { id: 5, content: "question" },
+  { id: 6, content: "answer" },
 ];
 
 function FloatingCircle({ circle }: { circle: DecorativeCircle }) {
@@ -287,6 +288,90 @@ function FlowersSlide({ choice }: FlowersSlideProps) {
           مثل احمرار خدودك عندما تخجلين 😊
         </p>
       </motion.div>
+    </motion.div>
+  );
+}
+
+interface HandOfferSlideProps {
+  onContinue: () => void;
+}
+
+function HandOfferSlide({ onContinue }: HandOfferSlideProps) {
+  return (
+    <motion.div
+      className="flex flex-col items-center justify-center gap-12"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        className="text-center"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        <p className="text-2xl text-white mb-8" dir="rtl">
+          الآن تأتي اللحظة الأهم...
+        </p>
+      </motion.div>
+
+      <motion.div
+        className="flex flex-col items-center gap-8"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 0.4, type: "spring", stiffness: 150 }}
+      >
+        <motion.div
+          animate={{
+            y: [0, -15, 0],
+            rotateZ: [-5, 0, 5, 0, -5],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <svg
+            viewBox="0 0 100 100"
+            className="w-32 h-32"
+            data-testid="hand-svg"
+          >
+            <path
+              d="M 50 80 Q 40 70 40 60 Q 40 50 50 50 Q 60 50 60 60 Q 60 70 50 80 M 30 70 L 25 40 Q 25 30 35 30 Q 45 30 45 40 L 48 70 M 50 50 L 50 15 M 70 50 L 75 20 Q 75 10 65 10 Q 55 10 55 20 L 52 50"
+              stroke="#ffb6c1"
+              strokeWidth="3"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </motion.div>
+
+        <motion.p
+          className="text-3xl text-pink-300 font-semibold text-center"
+          dir="rtl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          data-testid="hand-message"
+        >
+          هل تأخذين يدي؟ 💕
+        </motion.p>
+      </motion.div>
+
+      <motion.button
+        onClick={onContinue}
+        className="px-8 py-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-lg transition-colors mt-8"
+        data-testid="button-hand-continue"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        نعم، خذ يدي ❤️
+      </motion.button>
     </motion.div>
   );
 }
