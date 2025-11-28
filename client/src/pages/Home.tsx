@@ -285,7 +285,7 @@ function GameSlide({ onAnswer }: GameSlideProps) {
       >
         <p className="text-4xl font-bold text-white mb-6" dir="rtl" data-testid="greeting-name">هلاوو ريم 💕</p>
         <p className="text-2xl text-pink-300 mb-4" dir="rtl">
-          جاهزة لعبة ؟ 😏
+          تعالي خلي نلعب سوة ؟ 😏
         </p>
         <p className="text-lg text-white/70" dir="rtl">
           اللي تخسرين معاي ما تهربين 😉
