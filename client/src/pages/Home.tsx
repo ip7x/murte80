@@ -421,7 +421,7 @@ function FlowersSlide({ choice, onNext }: FlowersSlideProps) {
           {isRed ? "صحيح بس مع الأسف اني طماع 🌹" : "تحبين الورد الأبيض 🤍"}
         </p>
         <p className="text-xl text-pink-300 mt-4" dir="rtl">
-          {isRed ? "أحمر مثل احمرار خدك" : "أبيض نقي مثل روحك"}
+          {isRed ? "ييلةة بوسيي وبلا زحة يستحسن تكون فويز" : "أبيض نقي مثل روحك"}
         </p>
       </motion.div>
     </motion.div>
