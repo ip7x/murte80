@@ -485,7 +485,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
 
   const narrativeSteps = [
     "بصراحة اني احبج وريد نكون سوة ونتِ",
-    "عرفت إنك خلقتي لي",
+    "هل ناوية تحبيني ونكون سوة",
     "كل لحظة معاك حياة جديدة",
   ];
 
