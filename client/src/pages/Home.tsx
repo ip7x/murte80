@@ -75,6 +75,42 @@ function Rose({ color }: { color: "red" | "white" }) {
   );
 }
 
+function HelloKitty() {
+  return (
+    <motion.div
+      className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-200 to-pink-300 flex items-center justify-center shadow-lg"
+      initial={{ scale: 0, y: -20 }}
+      animate={{ scale: 1, y: 0 }}
+      transition={{ type: "spring", stiffness: 200, damping: 15 }}
+    >
+      <svg viewBox="0 0 100 100" className="w-16 h-16">
+        {/* Head */}
+        <circle cx="50" cy="50" r="35" fill="#ffffff" />
+        {/* Left Ear */}
+        <circle cx="30" cy="25" r="12" fill="#ffffff" stroke="#ffb6d9" strokeWidth="1.5" />
+        <circle cx="30" cy="25" r="8" fill="#ffb6d9" />
+        {/* Right Ear */}
+        <circle cx="70" cy="25" r="12" fill="#ffffff" stroke="#ffb6d9" strokeWidth="1.5" />
+        <circle cx="70" cy="25" r="8" fill="#ffb6d9" />
+        {/* Left Eye */}
+        <circle cx="40" cy="45" r="4" fill="#000000" />
+        <circle cx="41" cy="43" r="1.5" fill="#ffffff" />
+        {/* Right Eye */}
+        <circle cx="60" cy="45" r="4" fill="#000000" />
+        <circle cx="61" cy="43" r="1.5" fill="#ffffff" />
+        {/* Nose */}
+        <ellipse cx="50" cy="55" rx="2.5" ry="3" fill="#ffb6d9" />
+        {/* Mouth */}
+        <path d="M 50 55 Q 45 60 42 59" stroke="#000000" strokeWidth="1" fill="none" strokeLinecap="round" />
+        <path d="M 50 55 Q 55 60 58 59" stroke="#000000" strokeWidth="1" fill="none" strokeLinecap="round" />
+        {/* Bow */}
+        <circle cx="65" cy="28" r="5" fill="#ff1493" />
+        <ellipse cx="63" cy="26" rx="2" ry="3" fill="#ffffff" opacity="0.6" />
+      </svg>
+    </motion.div>
+  );
+}
+
 function FloatingCircle({ circle }: { circle: DecorativeCircle }) {
   return (
     <motion.div
@@ -164,6 +200,7 @@ function GameSlide({ onAnswer }: GameSlideProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      <HelloKitty />
       <Avatar />
 
       <motion.div
@@ -211,6 +248,7 @@ function FlowerChoiceSlide({ onChoice }: FlowerChoiceSlideProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      <HelloKitty />
       <motion.div
         className="text-center"
         initial={{ opacity: 0, scale: 0.8 }}
@@ -272,11 +310,18 @@ function FlowersSlide({ choice }: FlowersSlideProps) {
 
   return (
     <motion.div
-      className="relative w-full h-96 flex items-center justify-center overflow-hidden"
+      className="flex flex-col items-center justify-center gap-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      <HelloKitty />
+      <motion.div
+        className="relative w-full h-96 flex items-center justify-center overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
       {flowers.map((flower) => (
         <motion.div
           key={flower.id}
@@ -317,6 +362,7 @@ function FlowersSlide({ choice }: FlowersSlideProps) {
         </p>
       </motion.div>
     </motion.div>
+    </motion.div>
   );
 }
 
@@ -348,6 +394,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      <HelloKitty />
       <motion.div
         className="text-center space-y-4 max-w-lg"
         initial={{ opacity: 0, y: -20 }}
@@ -452,6 +499,7 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      <HelloKitty />
       <motion.div
         className="text-center space-y-4 max-w-lg"
         initial={{ opacity: 0, y: -20 }}
