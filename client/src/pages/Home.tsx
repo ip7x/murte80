@@ -283,9 +283,7 @@ function GameSlide({ onAnswer }: GameSlideProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <p className="text-4xl font-bold text-white mb-6" dir="rtl" data-testid="greeting-name">
-          هاي يا ريمي 💕
-        </p>
+        <p className="text-4xl font-bold text-white mb-6" dir="rtl" data-testid="greeting-name">هلاوو ريم 💕</p>
         <p className="text-2xl text-pink-300 mb-4" dir="rtl">
           جاهزة لعبة ؟ 😏
         </p>
