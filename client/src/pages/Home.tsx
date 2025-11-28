@@ -338,7 +338,7 @@ function FlowerChoiceSlide({ onChoice }: FlowerChoiceSlideProps) {
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
         >
-          <span>الأحمر</span>
+          <span>انتِ</span>
           <Rose color="red" />
         </motion.button>
 
