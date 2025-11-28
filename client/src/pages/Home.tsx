@@ -425,19 +425,16 @@ function FlowersSlide({ choice, onNext }: FlowersSlideProps) {
         </p>
       </motion.div>
     </motion.div>
-
-    <motion.button
-      onClick={onNext}
-      className="px-10 py-4 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-lg transition-colors"
-      data-testid="button-continue-flowers"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.8 }}
-      whileHover={{ scale: 1.08 }}
-      whileTap={{ scale: 0.95 }}
-    >
-      نكمل ✨
-    </motion.button>
+      <motion.button
+        onClick={onNext}
+        className="px-10 py-4 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-lg transition-colors"
+        data-testid="button-continue-flowers"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8 }}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95 }}
+      >دوسي هنا✨</motion.button>
     </motion.div>
   );
 }
