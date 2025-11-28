@@ -835,8 +835,17 @@ export default function Home() {
       setAudioDuration(audio.duration);
     };
 
+    const handleCanPlay = () => {
+      if (isAudioPlaying) {
+        audio.play().catch(() => {
+          setIsAudioPlaying(false);
+        });
+      }
+    };
+
     audio.addEventListener("timeupdate", handleTimeUpdate);
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener("canplay", handleCanPlay);
 
     audio.play().catch(() => {
       setIsAudioPlaying(false);
@@ -845,8 +854,27 @@ export default function Home() {
     return () => {
       audio.removeEventListener("timeupdate", handleTimeUpdate);
       audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener("canplay", handleCanPlay);
     };
-  }, []);
+  }, [isAudioPlaying]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const playAudio = async () => {
+      try {
+        audio.currentTime = 0;
+        if (isAudioPlaying) {
+          await audio.play();
+        }
+      } catch (err) {
+        setIsAudioPlaying(false);
+      }
+    };
+
+    setTimeout(playAudio, 100);
+  }, [currentSongIndex, isAudioPlaying]);
 
   const toggleAudio = () => {
     if (audioRef.current) {
@@ -875,18 +903,10 @@ export default function Home() {
 
   const handlePreviousSong = () => {
     setCurrentSongIndex((prev) => (prev === 0 ? songs.length - 1 : prev - 1));
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
-    }
   };
 
   const handleNextSong = () => {
     setCurrentSongIndex((prev) => (prev === songs.length - 1 ? 0 : prev + 1));
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
-    }
   };
 
   useEffect(() => {
