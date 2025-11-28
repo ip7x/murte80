@@ -690,7 +690,7 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
             transition={{ type: "spring", stiffness: 200, delay: 1.2 }}
           >
             <p className="text-2xl text-white font-semibold" dir="rtl">
-              شكراً لأنك اختريتيني 🌹
+              شكراً لأن شاركتيني 🌹
             </p>
             <p className="text-pink-300">❤️واني هم حكون شريك حياتج وحبيبج</p>
           </motion.div>
