@@ -929,7 +929,6 @@ export default function Home() {
     <div className="relative w-full h-screen bg-gradient-to-br from-[#2d1b4e] via-[#3d2a5f] to-[#1a0f3d] flex flex-col items-center justify-center overflow-hidden">
       {/* Audio Element */}
       <audio ref={audioRef} src={audioFile} loop />
-
       {/* Audio Control Section */}
       <motion.div
         className="absolute top-4 right-4 flex flex-col gap-3 z-50"
@@ -987,17 +986,13 @@ export default function Home() {
             className="w-48 h-2 bg-pink-300/30 rounded-lg appearance-none cursor-pointer accent-pink-500"
             data-testid="slider-audio-time"
           />
-          <div className="text-white text-xs mt-2 text-center">
-            اسحب للتحكم في الدقيقة
-          </div>
+          <div className="text-white text-xs mt-2 text-center">اسحبيي حتة تقدمين</div>
         </motion.div>
       </motion.div>
-
       {/* Decorative Circles */}
       {decorativeCircles.map((circle) => (
         <FloatingCircle key={circle.id} circle={circle} />
       ))}
-
       {/* Main Content */}
       <div className="relative w-full h-full flex items-center justify-center px-4">
         <AnimatePresence initial={false} custom={direction} mode="wait">
@@ -1025,7 +1020,6 @@ export default function Home() {
           </motion.div>
         </AnimatePresence>
       </div>
-
       {/* Navigation */}
       <div className="absolute bottom-8 left-0 right-0 flex justify-center items-center gap-8">
         <motion.button
