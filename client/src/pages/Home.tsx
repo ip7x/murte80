@@ -659,7 +659,7 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
           transition={{ type: "spring", stiffness: 200 }}
           data-testid="answer-title"
         >
-          {answer ? "عرفتها من الأول! 💕" : "إي هالجواب ما صح..."}
+          {answer ? "يمةةة فدوةةة! 💕" : "إي هالجواب ما صح..."}
         </motion.h3>
 
         {continuation.map((line, idx) => (
