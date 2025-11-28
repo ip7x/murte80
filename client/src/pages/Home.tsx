@@ -323,9 +323,7 @@ function FlowerChoiceSlide({ onChoice }: FlowerChoiceSlideProps) {
         transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
       >
         <p className="text-3xl text-white mb-2" dir="rtl" data-testid="flower-question">هممم سوأل:</p>
-        <p className="text-2xl text-pink-300" dir="rtl">
-          إيش تختارين، الأحمر ولا الأبيض؟
-        </p>
+        <p className="text-2xl text-pink-300" dir="rtl">شنو احب اكثر؟</p>
       </motion.div>
       <motion.div
         className="flex gap-16 items-center"
