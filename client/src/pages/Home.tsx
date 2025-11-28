@@ -594,7 +594,7 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
   const yesContinuation = [
     "اطشلك من تجي على الدرب",
     "بوسات وزرعلك السجة ورد",
-    "والحين بتقولينها بصراحة",
+    "من بيتك لحد بيتي",
   ];
 
   const noContinuation = [
