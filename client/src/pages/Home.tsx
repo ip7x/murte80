@@ -470,7 +470,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
   const narrativeSteps = [
     "بصراحة اني احبج وريد نكون سوة ونتِ",
     "هل ناوية تحبيني ونكون سوة",
-    "كل لحظة معاك حياة جديدة",
+    "اريدج وياي بكل خطوة",
   ];
 
   return (
