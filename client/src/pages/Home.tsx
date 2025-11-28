@@ -507,9 +507,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1, type: "spring", stiffness: 200 }}
       >
-        <h2 className="text-4xl font-bold text-white mb-2" dir="rtl" data-testid="main-question">
-          تحبيني؟
-        </h2>
+        <h2 className="text-4xl font-bold text-white mb-2" dir="rtl" data-testid="main-question">تحبيني لو لا؟</h2>
         <p className="text-pink-300 text-lg" dir="rtl">
           لا تحاولين كل دروبج ترجعيلي 😉
         </p>
