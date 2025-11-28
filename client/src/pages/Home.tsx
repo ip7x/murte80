@@ -22,7 +22,7 @@ const decorativeCircles: DecorativeCircle[] = [
 
 interface Slide {
   id: number;
-  content: "welcome" | "greeting" | "message" | "hearts" | "stars" | "question";
+  content: "welcome" | "greeting" | "message" | "hearts" | "stars" | "question" | "answer";
 }
 
 const slides: Slide[] = [
@@ -32,6 +32,7 @@ const slides: Slide[] = [
   { id: 4, content: "hearts" },
   { id: 5, content: "stars" },
   { id: 6, content: "question" },
+  { id: 7, content: "answer" },
 ];
 
 function FloatingCircle({ circle }: { circle: DecorativeCircle }) {
@@ -328,22 +329,62 @@ function StarsSlide() {
   );
 }
 
-function QuestionSlide() {
-  const [noClicked, setNoClicked] = useState(false);
-  const [scale, setScale] = useState(0);
+interface QuestionSlideProps {
+  onAnswer: (answer: boolean) => void;
+  onNoHover?: () => void;
+}
+
+function QuestionSlide({ onAnswer, onNoHover }: QuestionSlideProps) {
+  const [noAttempts, setNoAttempts] = useState(0);
+
+  const handleNoClick = () => {
+    setNoAttempts(prev => prev + 1);
+    if (noAttempts >= 2) {
+      onAnswer(false);
+    } else {
+      onNoHover?.();
+    }
+  };
+
+  const narrativeSteps = [
+    "منذ اللحظة التي رأيتك فيها...",
+    "أدركت أن حياتي ستتغير إلى الأبد",
+    "كل لحظة معك تستحق الانتظار",
+  ];
 
   return (
     <motion.div
-      className="flex flex-col items-center justify-center gap-12"
+      className="flex flex-col items-center justify-center gap-8 px-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
       <motion.div
+        className="text-center space-y-4 max-w-lg"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        {narrativeSteps.map((step, idx) => (
+          <motion.p
+            key={idx}
+            className="text-lg text-white/80 italic"
+            dir="rtl"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 + idx * 0.2 }}
+            data-testid={`narrative-step-${idx}`}
+          >
+            "{step}"
+          </motion.p>
+        ))}
+      </motion.div>
+
+      <motion.div
         className="text-center"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+        transition={{ delay: 1, type: "spring", stiffness: 200 }}
       >
         <h2
           className="text-4xl font-bold text-white mb-2"
@@ -361,19 +402,20 @@ function QuestionSlide() {
         className="flex gap-8 items-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
+        transition={{ delay: 1.2 }}
       >
         <motion.button
-          onClick={() => setNoClicked(true)}
+          onClick={handleNoClick}
           className="px-8 py-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-lg transition-colors"
           data-testid="button-no"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          {noClicked ? "نعم ❤️" : "لا"}
+          {noAttempts === 0 ? "لا" : noAttempts === 1 ? "لا (حاول مجدداً)" : "نعم ❤️"}
         </motion.button>
 
         <motion.button
+          onClick={() => onAnswer(true)}
           className="px-8 py-3 rounded-full bg-white/20 hover:bg-white/30 text-white font-semibold text-lg transition-colors"
           data-testid="button-yes"
           whileHover={{ scale: 1.05 }}
@@ -383,23 +425,128 @@ function QuestionSlide() {
         </motion.button>
       </motion.div>
 
-      {noClicked && (
+      {noAttempts > 0 && noAttempts < 3 && (
         <motion.p
-          className="text-xl text-white/80 text-center"
+          className="text-lg text-white/60 text-center"
           dir="rtl"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          data-testid="text-escape-message"
+          transition={{ delay: 0.3 }}
+          data-testid="text-hint"
         >
-          هههه معك حق، لا يمكن الهروب مني 🌹
+          كل محاولة للهروب تجعلك أقرب إليّ... 💕
         </motion.p>
       )}
     </motion.div>
   );
 }
 
-function SlideContent({ content }: { content: Slide["content"] }) {
+interface AnswerSlideProps {
+  answer: boolean;
+}
+
+function AnswerSlide({ answer }: AnswerSlideProps) {
+  const yesContinuation = [
+    "أنا أعرف ذلك في أعماق قلبك",
+    "شعرت به في كل نظرة، كل ابتسامة",
+    "والآن أنتِ تقولينها بكل جرأة",
+  ];
+
+  const noContinuation = [
+    "لكن عينيك تخبرين قصة مختلفة",
+    "محاولتك للهروب جعلتك أقرب أكثر",
+    "الحب ليس دائماً سهلاً في البداية",
+  ];
+
+  const continuation = answer ? yesContinuation : noContinuation;
+
+  return (
+    <motion.div
+      className="flex flex-col items-center justify-center gap-8 px-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        className="text-center space-y-4 max-w-lg"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        <motion.h3
+          className={`text-3xl font-bold mb-6 ${
+            answer ? "text-pink-300" : "text-yellow-300"
+          }`}
+          dir="rtl"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 200 }}
+          data-testid="answer-title"
+        >
+          {answer ? "أنا أعرف! 💕" : "هذا ليس الجواب..."}
+        </motion.h3>
+
+        {continuation.map((line, idx) => (
+          <motion.p
+            key={idx}
+            className="text-lg text-white/80"
+            dir="rtl"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 + idx * 0.2 }}
+            data-testid={`continuation-${idx}`}
+          >
+            "{line}"
+          </motion.p>
+        ))}
+      </motion.div>
+
+      <motion.div
+        className="mt-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+      >
+        {answer ? (
+          <motion.div
+            className="text-center space-y-3"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 200, delay: 1.2 }}
+          >
+            <p className="text-2xl text-white font-semibold" dir="rtl">
+              شكراً لأنك اختريتيني 🌹
+            </p>
+            <p className="text-pink-300">
+              ❤️ وأنا سأختارك كل يوم ❤️
+            </p>
+          </motion.div>
+        ) : (
+          <motion.div
+            className="text-center space-y-3"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 200, delay: 1.2 }}
+          >
+            <p className="text-2xl text-white font-semibold" dir="rtl">
+              أنا صبور... لكن محصور بك 😊
+            </p>
+            <p className="text-yellow-300">
+              🌟 لا يمكنك الهروب من قلب يحبك 🌟
+            </p>
+          </motion.div>
+        )}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+interface SlideContentProps {
+  content: Slide["content"];
+  onAnswer?: (answer: boolean) => void;
+}
+
+function SlideContent({ content, onAnswer }: SlideContentProps) {
   switch (content) {
     case "welcome":
       return <WelcomeSlide />;
@@ -412,7 +559,9 @@ function SlideContent({ content }: { content: Slide["content"] }) {
     case "stars":
       return <StarsSlide />;
     case "question":
-      return <QuestionSlide />;
+      return <QuestionSlide onAnswer={onAnswer || (() => {})} />;
+    case "answer":
+      return <AnswerSlide answer={true} />;
     default:
       return null;
   }
@@ -449,16 +598,33 @@ function PaginationDots({
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [userAnswer, setUserAnswer] = useState<boolean | null>(null);
+  const [displayAnswer, setDisplayAnswer] = useState(false);
+
+  const handleAnswer = (answer: boolean) => {
+    setUserAnswer(answer);
+    setDisplayAnswer(true);
+    setTimeout(() => {
+      setCurrentSlide(6);
+    }, 300);
+  };
 
   const nextSlide = useCallback(() => {
+    if (currentSlide === 5) return;
     setDirection(1);
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  }, []);
+    setCurrentSlide((prev) => (prev + 1) % (slides.length - 1));
+  }, [currentSlide]);
 
   const prevSlide = useCallback(() => {
+    if (currentSlide === 6) {
+      setDisplayAnswer(false);
+      setUserAnswer(null);
+      setCurrentSlide(5);
+      return;
+    }
     setDirection(-1);
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  }, []);
+  }, [currentSlide]);
 
   const goToSlide = (index: number) => {
     setCurrentSlide((prev) => {
@@ -525,6 +691,8 @@ export default function Home() {
     }),
   };
 
+  const currentContent = displayAnswer && userAnswer !== null ? "answer" : slides[currentSlide].content;
+
   return (
     <div
       className="min-h-screen w-full bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f0f23] relative overflow-hidden"
@@ -537,7 +705,7 @@ export default function Home() {
       <div className="absolute inset-0 flex items-center justify-center">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
-            key={currentSlide}
+            key={currentSlide + (displayAnswer ? "-answer" : "")}
             custom={direction}
             variants={slideVariants}
             initial="enter"
@@ -546,7 +714,11 @@ export default function Home() {
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className="flex items-center justify-center w-full px-4"
           >
-            <SlideContent content={slides[currentSlide].content} />
+            {displayAnswer && userAnswer !== null ? (
+              <AnswerSlide answer={userAnswer} />
+            ) : (
+              <SlideContent content={currentContent} onAnswer={handleAnswer} />
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
@@ -572,7 +744,7 @@ export default function Home() {
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
         <PaginationDots
           currentSlide={currentSlide}
-          totalSlides={slides.length}
+          totalSlides={Math.min(slides.length - 1, currentSlide + 2)}
           onDotClick={goToSlide}
         />
       </div>
