@@ -900,6 +900,7 @@ export default function Home() {
               content={currentContent.content}
               onGameAnswer={handleGameAnswer}
               onFlowerChoice={handleFlowerChoice}
+              onFlowersNext={nextSlide}
               onMainAnswer={handleMainAnswer}
               flowerChoice={flowerChoice}
             />
