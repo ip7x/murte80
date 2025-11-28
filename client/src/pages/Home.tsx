@@ -284,25 +284,25 @@ function GameSlide({ onAnswer }: GameSlideProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <p className="text-6xl font-bold text-white mb-8" dir="rtl" data-testid="greeting-name">
+        <p className="text-4xl font-bold text-white mb-6" dir="rtl" data-testid="greeting-name">
           هاي يا ريمي 💕
         </p>
-        <p className="text-4xl text-pink-300 mb-6" dir="rtl">
+        <p className="text-2xl text-pink-300 mb-4" dir="rtl">
           جاهزة لعبة ؟ 😏
         </p>
-        <p className="text-2xl text-white/80" dir="rtl">
+        <p className="text-lg text-white/70" dir="rtl">
           اللي تخسرين معاي ما تهربين 😉
         </p>
       </motion.div>
 
       <motion.button
         onClick={() => onAnswer(true)}
-        className="px-12 py-5 rounded-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-bold text-2xl transition-all shadow-lg"
+        className="px-10 py-4 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-lg transition-colors"
         data-testid="button-game-start"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
-        whileHover={{ scale: 1.1 }}
+        whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
       >
         يلا نبدا الحين ✨
@@ -330,10 +330,10 @@ function FlowerChoiceSlide({ onChoice }: FlowerChoiceSlideProps) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
       >
-        <p className="text-4xl text-white mb-3" dir="rtl" data-testid="flower-question">
+        <p className="text-3xl text-white mb-2" dir="rtl" data-testid="flower-question">
           السؤال الأول:
         </p>
-        <p className="text-3xl text-pink-400 font-semibold" dir="rtl">
+        <p className="text-2xl text-pink-300" dir="rtl">
           إيش تختارين، الأحمر ولا الأبيض؟
         </p>
       </motion.div>
@@ -346,9 +346,9 @@ function FlowerChoiceSlide({ onChoice }: FlowerChoiceSlideProps) {
       >
         <motion.button
           onClick={() => onChoice("red")}
-          className="px-10 py-5 rounded-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold text-xl transition-all shadow-lg flex items-center gap-4"
+          className="px-8 py-4 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold text-lg transition-colors flex items-center gap-3"
           data-testid="button-red-flower"
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
         >
           <span>الأحمر</span>
@@ -357,9 +357,9 @@ function FlowerChoiceSlide({ onChoice }: FlowerChoiceSlideProps) {
 
         <motion.button
           onClick={() => onChoice("white")}
-          className="px-10 py-5 rounded-full bg-gradient-to-r from-white/40 to-white/50 hover:from-white/50 hover:to-white/60 text-white font-bold text-xl transition-all shadow-lg flex items-center gap-4 border-2 border-white/50"
+          className="px-8 py-4 rounded-full bg-white/30 hover:bg-white/40 text-white font-semibold text-lg transition-colors flex items-center gap-3"
           data-testid="button-white-flower"
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
         >
           <span>الأبيض</span>
@@ -430,10 +430,10 @@ function FlowersSlide({ choice, onNext }: FlowersSlideProps) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3, type: "spring" }}
       >
-        <p className="text-5xl font-bold text-white" dir="rtl" data-testid="flower-message">
+        <p className="text-3xl text-white" dir="rtl" data-testid="flower-message">
           {isRed ? "تحبين الورد الأحمر 🌹" : "تحبين الورد الأبيض 🤍"}
         </p>
-        <p className="text-2xl text-pink-300 mt-6 font-semibold" dir="rtl">
+        <p className="text-xl text-pink-300 mt-4" dir="rtl">
           {isRed ? "أحمر مثل احمرار خدك" : "أبيض نقي مثل روحك"}
         </p>
       </motion.div>
@@ -441,12 +441,12 @@ function FlowersSlide({ choice, onNext }: FlowersSlideProps) {
 
     <motion.button
       onClick={onNext}
-      className="px-12 py-5 rounded-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-bold text-2xl transition-all shadow-lg"
+      className="px-10 py-4 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-lg transition-colors"
       data-testid="button-continue-flowers"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.8 }}
-      whileHover={{ scale: 1.1 }}
+      whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.95 }}
     >
       نكمل ✨
@@ -485,7 +485,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
     >
       <HelloKitty image={image4} />
       <motion.div
-        className="text-center space-y-6 max-w-2xl"
+        className="text-center space-y-4 max-w-lg"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
@@ -493,7 +493,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
         {narrativeSteps.map((step, idx) => (
           <motion.p
             key={idx}
-            className="text-2xl text-white/90 italic font-semibold"
+            className="text-lg text-white/80 italic"
             dir="rtl"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -511,25 +511,25 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1, type: "spring", stiffness: 200 }}
       >
-        <h2 className="text-6xl font-bold text-white mb-4" dir="rtl" data-testid="main-question">
+        <h2 className="text-4xl font-bold text-white mb-2" dir="rtl" data-testid="main-question">
           تحبيني؟
         </h2>
-        <p className="text-pink-400 text-2xl font-semibold" dir="rtl">
+        <p className="text-pink-300 text-lg" dir="rtl">
           ما فيك تهربين مني 😉
         </p>
       </motion.div>
 
       <motion.div
-        className="flex gap-10 items-center"
+        className="flex gap-8 items-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2 }}
       >
         <motion.button
           onClick={handleNoClick}
-          className="px-10 py-5 rounded-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-bold text-xl transition-all shadow-lg"
+          className="px-8 py-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-lg transition-colors"
           data-testid="button-no-main"
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           {noAttempts === 0 ? "لا" : noAttempts === 1 ? "لا مرة ثانية" : "يالله نعم ❤️"}
@@ -537,9 +537,9 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
 
         <motion.button
           onClick={() => onAnswer(true)}
-          className="px-10 py-5 rounded-full bg-gradient-to-r from-white/40 to-white/50 hover:from-white/50 hover:to-white/60 text-white font-bold text-xl transition-all shadow-lg border-2 border-white/50"
+          className="px-8 py-3 rounded-full bg-white/20 hover:bg-white/30 text-white font-semibold text-lg transition-colors"
           data-testid="button-yes-main"
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           نعم
@@ -548,7 +548,7 @@ function QuestionSlide({ onAnswer, flowerChoice }: QuestionSlideProps) {
 
       {noAttempts > 0 && noAttempts < 3 && (
         <motion.p
-          className="text-2xl text-white/80 text-center font-semibold"
+          className="text-lg text-white/60 text-center"
           dir="rtl"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -620,14 +620,14 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
         />
       </motion.div>
       <motion.div
-        className="text-center space-y-6 max-w-2xl"
+        className="text-center space-y-4 max-w-lg"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
         <motion.h3
-          className={`text-5xl font-bold mb-8 ${
-            answer ? "text-pink-400" : "text-yellow-300"
+          className={`text-3xl font-bold mb-6 ${
+            answer ? "text-pink-300" : "text-yellow-300"
           }`}
           dir="rtl"
           initial={{ scale: 0 }}
@@ -641,7 +641,7 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
         {continuation.map((line, idx) => (
           <motion.p
             key={idx}
-            className="text-2xl text-white/90 font-semibold"
+            className="text-lg text-white/80"
             dir="rtl"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -666,10 +666,10 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200, delay: 1.2 }}
           >
-            <p className="text-4xl text-white font-bold" dir="rtl">
+            <p className="text-2xl text-white font-semibold" dir="rtl">
               شكراً لأنك اختريتيني 🌹
             </p>
-            <p className="text-3xl text-pink-400 font-semibold">
+            <p className="text-pink-300">
               ❤️ وأني بختارك كل يوم ❤️
             </p>
           </motion.div>
@@ -680,10 +680,10 @@ function AnswerSlide({ answer }: AnswerSlideProps) {
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200, delay: 1.2 }}
           >
-            <p className="text-4xl text-white font-bold" dir="rtl">
+            <p className="text-2xl text-white font-semibold" dir="rtl">
               أني صابر لك بس محصور بك 😊
             </p>
-            <p className="text-3xl text-yellow-300 font-semibold">
+            <p className="text-yellow-300">
               🌟 ما تقدري تهربي من حب مثل حبي 🌟
             </p>
           </motion.div>
@@ -874,7 +874,7 @@ export default function Home() {
   const currentContent = slides[currentSlide];
 
   return (
-    <div className="relative w-full h-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f0f23] flex flex-col items-center justify-center overflow-hidden">
+    <div className="relative w-full h-screen bg-gradient-to-br from-[#2d1b4e] via-[#3d2a5f] to-[#1a0f3d] flex flex-col items-center justify-center overflow-hidden">
       {/* Decorative Circles */}
       {decorativeCircles.map((circle) => (
         <FloatingCircle key={circle.id} circle={circle} />
