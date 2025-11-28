@@ -22,7 +22,7 @@ const decorativeCircles: DecorativeCircle[] = [
 
 interface Slide {
   id: number;
-  content: "welcome" | "greeting" | "message" | "hearts" | "stars";
+  content: "welcome" | "greeting" | "message" | "hearts" | "stars" | "question";
 }
 
 const slides: Slide[] = [
@@ -31,6 +31,7 @@ const slides: Slide[] = [
   { id: 3, content: "message" },
   { id: 4, content: "hearts" },
   { id: 5, content: "stars" },
+  { id: 6, content: "question" },
 ];
 
 function FloatingCircle({ circle }: { circle: DecorativeCircle }) {
@@ -131,8 +132,9 @@ function WelcomeSlide() {
           className="text-3xl font-bold text-white mb-2"
           dir="rtl"
           data-testid="text-greeting-title"
-        >هلوو ريمي
-</h1>
+        >
+          هلوو اسراء
+        </h1>
         <motion.p
           className="text-pink-300 text-xl tracking-widest"
           animate={{ opacity: [0.5, 1, 0.5] }}
@@ -326,6 +328,77 @@ function StarsSlide() {
   );
 }
 
+function QuestionSlide() {
+  const [noClicked, setNoClicked] = useState(false);
+  const [scale, setScale] = useState(0);
+
+  return (
+    <motion.div
+      className="flex flex-col items-center justify-center gap-12"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        className="text-center"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+      >
+        <h2
+          className="text-4xl font-bold text-white mb-2"
+          dir="rtl"
+          data-testid="text-question"
+        >
+          هل تحبيني؟
+        </h2>
+        <p className="text-pink-300 text-lg" dir="rtl">
+          لا وجود لمهرب مني 😉
+        </p>
+      </motion.div>
+
+      <motion.div
+        className="flex gap-8 items-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+      >
+        <motion.button
+          onClick={() => setNoClicked(true)}
+          className="px-8 py-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-lg transition-colors"
+          data-testid="button-no"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {noClicked ? "نعم ❤️" : "لا"}
+        </motion.button>
+
+        <motion.button
+          className="px-8 py-3 rounded-full bg-white/20 hover:bg-white/30 text-white font-semibold text-lg transition-colors"
+          data-testid="button-yes"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          نعم
+        </motion.button>
+      </motion.div>
+
+      {noClicked && (
+        <motion.p
+          className="text-xl text-white/80 text-center"
+          dir="rtl"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          data-testid="text-escape-message"
+        >
+          هههه معك حق، لا يمكن الهروب مني 🌹
+        </motion.p>
+      )}
+    </motion.div>
+  );
+}
+
 function SlideContent({ content }: { content: Slide["content"] }) {
   switch (content) {
     case "welcome":
@@ -338,6 +411,8 @@ function SlideContent({ content }: { content: Slide["content"] }) {
       return <HeartsSlide />;
     case "stars":
       return <StarsSlide />;
+    case "question":
+      return <QuestionSlide />;
     default:
       return null;
   }
