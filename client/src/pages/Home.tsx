@@ -1,11 +1,12 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Heart, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart, Sparkles, Music, Volume2, VolumeX } from "lucide-react";
 import image1 from "@assets/matching lockscreen batman and hello kitty_1764351307925.jpeg";
 import image2 from "@assets/Lily_1764351307926.jpeg";
 import image3 from "@assets/Batman & hello kitty_1764351307927.jpeg";
 import image4 from "@assets/توت👸🏻⟡ نايف 🦸🏻_♂️ on TikTok_1764351307928.jpeg";
 import gifImage from "@assets/From KlickPin CF Hello Kitty GIF _ Imagens animadas gif Coisas da hello kitty Emoticons animados_1764351307929.gif";
+import audioFile from "@assets/عينك - غيث صباح الاصدار الخامس من _1764357789556.mp3";
 
 interface DecorativeCircle {
   id: number;
@@ -761,6 +762,8 @@ export default function Home() {
   const [flowerChoice, setFlowerChoice] = useState<"red" | "white">("red");
   const [userAnswer, setUserAnswer] = useState<boolean | null>(null);
   const [displayAnswer, setDisplayAnswer] = useState(false);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(true);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const handleGameAnswer = (answer: boolean) => {
     if (!answer) {
@@ -806,6 +809,25 @@ export default function Home() {
       setDirection(index > prev ? 1 : -1);
       return index;
     });
+  };
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.play().catch(() => {
+        setIsAudioPlaying(false);
+      });
+    }
+  }, []);
+
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (isAudioPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsAudioPlaying(!isAudioPlaying);
+    }
   };
 
   useEffect(() => {
@@ -871,6 +893,27 @@ export default function Home() {
 
   return (
     <div className="relative w-full h-screen bg-gradient-to-br from-[#2d1b4e] via-[#3d2a5f] to-[#1a0f3d] flex flex-col items-center justify-center overflow-hidden">
+      {/* Audio Element */}
+      <audio ref={audioRef} src={audioFile} loop />
+
+      {/* Audio Control Button */}
+      <motion.button
+        onClick={toggleAudio}
+        className="absolute top-4 right-4 p-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white transition-colors z-50"
+        data-testid="button-audio-toggle"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+      >
+        {isAudioPlaying ? (
+          <Volume2 className="w-5 h-5" />
+        ) : (
+          <VolumeX className="w-5 h-5" />
+        )}
+      </motion.button>
+
       {/* Decorative Circles */}
       {decorativeCircles.map((circle) => (
         <FloatingCircle key={circle.id} circle={circle} />
