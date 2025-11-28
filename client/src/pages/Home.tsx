@@ -277,7 +277,6 @@ function GameSlide({ onAnswer }: GameSlideProps) {
       exit={{ opacity: 0 }}
     >
       <HelloKitty image={image1} />
-
       <motion.div
         className="text-center"
         initial={{ opacity: 0, y: -20 }}
@@ -294,7 +293,6 @@ function GameSlide({ onAnswer }: GameSlideProps) {
           اللي تخسرين معاي ما تهربين 😉
         </p>
       </motion.div>
-
       <motion.button
         onClick={() => onAnswer(true)}
         className="px-10 py-4 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-lg transition-colors"
@@ -304,9 +302,7 @@ function GameSlide({ onAnswer }: GameSlideProps) {
         transition={{ delay: 0.6 }}
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
-      >
-        يلا نبدا الحين ✨
-      </motion.button>
+      >دوسي هنا يا اميرتي✨</motion.button>
     </motion.div>
   );
 }
